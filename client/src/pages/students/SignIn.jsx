@@ -13,7 +13,7 @@ const SignIn = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {isLoading,currentUser,error} = useSelector((state) => state.student)
+    const {isLoading,error} = useSelector((state) => state.user)
 
   const [formData, setFormData] = useState({})
 

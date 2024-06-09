@@ -57,7 +57,7 @@ studentRoute.post("/login", async(req,res)=>{
     
 
     try {
-        const studentEmail = await Student.findOne({email}).select("-password")
+        const studentEmail = await Student.findOne({email})
 
         if(!studentEmail){
             return res.status(404).json("User does not exist")

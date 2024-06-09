@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 const AdminNav = () => {
     const path = useLocation().pathname
-    const {currentUser} = useSelector((state) => state.student)
+    const {currentUser} = useSelector((state) => state.user)
 
   return (
     <nav className='w-full bg-[#202020] items-center text-white py-10 px-8 pb-0 flex justify-between'>
@@ -38,11 +38,11 @@ const AdminNav = () => {
         <li className=' size-10 bg-[#2F2F2F] text-[#FFE605] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title='Notification'>
             <FaBell />
         </li>
-        <li className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' > 
+        <li className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title={currentUser.name}> 
             <FaUser /> 
         </li>
 
-        <span className='text-lg'>{'Admin'}</span>
+        <span className='text-lg'>{currentUser.name}</span>
 
       </ul>
     </nav>

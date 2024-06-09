@@ -15,7 +15,7 @@ const Register = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {isLoading,error} = useSelector((state) => state.student)
+  const {isLoading,error} = useSelector((state) => state.user)
 
   
 

@@ -38,7 +38,7 @@ adminRoute.post("/adminLogin",async (req,res)=>{
     }
 
     try {
-        const adminUser = await Admin.findOne({email}).select("-password")
+        const adminUser = await Admin.findOne({email})
         if(!adminUser){
             return res.status(404).json("User does not exist")
         }
