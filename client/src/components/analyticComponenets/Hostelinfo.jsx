@@ -17,7 +17,7 @@ const Hostelinfo = () => {
                 <div className="flex p-5 gap-2 ">
                     <div className="bg-black p-4 rounded-xl basis-[33.333%]">
                     <h3 className=" text-white font-semibold text-xl flex items-center gap-2">Hostel 1 <SlShareAlt className="inline-block" /></h3>
-                    <div className=" size-72 mx-auto">
+                    <div className=" size-56 mx-auto">
                     <CircularProgressbar
                     value={percentage_1}
                     text={`${percentage_1}%`}
@@ -35,7 +35,7 @@ const Hostelinfo = () => {
 
                     <div className="bg-black p-4 rounded-xl basis-[33.333%]">
                     <h3 className=" text-white font-semibold text-xl flex items-center gap-2">Hostel 2 <SlShareAlt className="inline-block" /></h3>
-                    <div className="size-72 mx-auto">
+                    <div className="size-56 mx-auto">
                     <CircularProgressbar
                     value={percentage_2}
                     text={`${percentage_2}%`}
@@ -52,7 +52,7 @@ const Hostelinfo = () => {
 
                     <div className="bg-black p-4 rounded-xl basis-[33.333%]">
                     <h3 className=" text-white font-semibold text-xl flex items-center gap-2">Hostel 3 <SlShareAlt className="inline-block" /></h3>
-                    <div className="size-72 mx-auto">
+                    <div className="size-56 mx-auto">
                     <CircularProgressbar
                     value={percentage_3}
                     text={`${percentage_3}%`}

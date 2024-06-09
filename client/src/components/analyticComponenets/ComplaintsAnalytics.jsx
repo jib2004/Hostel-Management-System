@@ -27,7 +27,7 @@ export default function LinearDeterminate() {
     const [progress, setProgress] = useState(percentage);
 
   return (
-    <div className='bg-[#202020] p-2 mt-4 flex items-center gap-2 rounded-md' >
+    <div className='bg-[#202020] p-4 mt-4 flex items-center gap-2 rounded-md' >
         <div className='basis-[20%]'>
     <Box sx={{ width: '100%' }}>
     <BorderLinearProgress variant="determinate" value={progress} sx={{width:"100%", padding:"40px"}} />
