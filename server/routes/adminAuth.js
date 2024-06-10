@@ -2,6 +2,9 @@ import express from 'express'
 import Admin from '../model/adminModel.js';
 import bcryptjs from 'bcryptjs'
 import jwt from "jsonwebtoken"
+
+
+
 const adminRoute = express.Router()
 
 adminRoute.post('/adminRegister',async (req,res)=>{
@@ -46,10 +49,11 @@ adminRoute.post("/adminLogin",async (req,res)=>{
         if(!validPassword){
             return res.status(400).json({message:"Password Incorrect"})
         }
-        const token = jwt.sign({id:adminUser._id},process.env.JWT_SECRET_KEY,{})
-
+        const token = jwt.sign({id:adminUser._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
+        
+        console.log(token)
         res.status(200).cookie("token",token,{
-            httpOnly:true
+            httpOnly : true
         }).json(adminUser._doc)
     } catch (error) {
         console.log(error)
@@ -57,5 +61,7 @@ adminRoute.post("/adminLogin",async (req,res)=>{
 
 
 })
+
+
 
 export default adminRoute

@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client'
 import HomePage from './pages/HomePage';
 import './index.css'
 import Location from './pages/Location';
-
+import axios from 'axios';
 
 import { Provider } from 'react-redux'
 import { store,persistor } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react'
+
+
 
 
 import {
@@ -30,8 +32,11 @@ import Accounts from './pages/admin/Accounts';
 import Maintenance from './pages/admin/Maintenance';
 import PrivateRoute from './components/PrivateRoute';
 import AdminPrivateRoute from './components/AdminPrivateRoute';
+import AdminDashboardStudent from './pages/admin/AdminDashboardStudent.jsx';
 
 
+axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.withCredentials = true
 
 const router = createBrowserRouter([
   {
@@ -78,6 +83,10 @@ const router = createBrowserRouter([
     <AdminDashboard />
     </AdminPrivateRoute>
   )
+  },
+  {
+    path:"/admin/dashboard/student",
+    element:<AdminDashboardStudent />
   },
   {
     path:"/admin/login",

@@ -13,7 +13,7 @@ const AdminNav = () => {
 
 
       <ul className='flex gap-6 text-xl text-[#B0B0B0] items-center'>
-        <li className={path === "/admin/dashboard" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
+        <li className={path.includes("/admin/dashboard") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/dashboard'}><span>Dashboard</span> </Link>
         </li>
         <li className={path === "/admin/rooms" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>

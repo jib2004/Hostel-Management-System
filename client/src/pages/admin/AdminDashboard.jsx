@@ -13,9 +13,6 @@ const AdminDashboard = () => {
         <div className="flex mt-2 gap-4 h-[85%] py-2 px-4 ">
         <DashboardSidebar />
         <AnalyticPage />
-        <div>
-
-        </div>
         </div>
     </div>
   )
