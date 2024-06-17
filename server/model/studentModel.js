@@ -5,13 +5,11 @@ import mongoose from "mongoose";
 const studentSchema = new mongoose.Schema({
     isAdmin:{
         type: Boolean,
-        defaultValue: false
+        default: false
     },
     name:{
         type:String,
         required:true,
-        min:3,
-        max:20,
         trim:true,
         
     },
@@ -55,6 +53,14 @@ const studentSchema = new mongoose.Schema({
         type:String,
         default:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     },
+defaulter:{
+    type:Boolean,
+    default:false
+},
+isBlocked:{
+    type:Boolean,
+    default:false
+}
    
 
 

@@ -51,7 +51,6 @@ adminRoute.post("/adminLogin",async (req,res)=>{
         }
         const token = jwt.sign({id:adminUser._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
         
-        console.log(token)
         res.status(200).cookie("token",token,{
             httpOnly : true
         }).json(adminUser._doc)

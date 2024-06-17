@@ -7,6 +7,7 @@ const studentRoute = express.Router()
 
 studentRoute.post("/student",async (req,res)=>{
     const {
+        isAdmin,
         name,
         email,
         password,
@@ -15,7 +16,10 @@ studentRoute.post("/student",async (req,res)=>{
         emergencyPhoneNumber,
         address,
         gender ,
-        profilePicture} = req.body
+        profilePicture,
+        defaulter,
+        isBlocked
+    } = req.body
 
     if(!name || !email || !password || !emergencyContactName || !phoneNumber || !emergencyPhoneNumber || !address || !gender ){
        return res.status(400).json("Kindly Fill The Required Field")
@@ -24,6 +28,7 @@ studentRoute.post("/student",async (req,res)=>{
 
     const hashedPassword = bcryptjs.hashSync(password,10)
     const newStudent = new Student({
+        isAdmin,
         name,
         email,
         password:hashedPassword,
@@ -32,7 +37,9 @@ studentRoute.post("/student",async (req,res)=>{
         emergencyPhoneNumber, 
         address,
         gender,
-        profilePicture
+        profilePicture,
+        defaulter,
+        isBlocked
     })
 
 

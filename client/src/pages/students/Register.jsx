@@ -60,10 +60,11 @@ const Register = () => {
     const response = await axios.post("http://localhost:5000/api/auth/student", formData)
 
     const data = response
+    dispatch(isSignInSuccess(data))
 
     toast.success("Login Successful")
 
-    navigate("/student/login")
+    navigate("/login")
 
       }
       catch(e){

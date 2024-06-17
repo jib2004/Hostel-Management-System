@@ -33,6 +33,7 @@ import Maintenance from './pages/admin/Maintenance';
 import PrivateRoute from './components/PrivateRoute';
 import AdminPrivateRoute from './components/AdminPrivateRoute';
 import AdminDashboardStudent from './pages/admin/AdminDashboardStudent.jsx';
+import StudentInfo from './components/dashboardStudent/studentLD/StudentInfo.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
   {
     path:"/admin/dashboard/student",
     element:<AdminDashboardStudent />
+  },
+  {
+    path:"/admin/dashboard/student/:id",
+    element:<StudentInfo/>
   },
   {
     path:"/admin/login",

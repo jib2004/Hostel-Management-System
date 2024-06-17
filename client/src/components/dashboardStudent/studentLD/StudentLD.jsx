@@ -1,12 +1,13 @@
+import DefaultersList from './DefaultersList'
 import StudentsList from './StudentsList'
 
 
 const StudentLD = () => {
   
   return (
-    <div className='flex w-full border mt-5 gap-4'>
+    <div className='flex w-full border mt-5 gap-4 h-[77%] border-red-500'>
         <StudentsList />
-        <div className='basis-1/2'></div>
+        <DefaultersList />
     </div>
   )
 }

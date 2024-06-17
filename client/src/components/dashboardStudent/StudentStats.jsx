@@ -1,10 +1,22 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 import { SlShareAlt } from "react-icons/sl";
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { purple,grey } from '@mui/material/colors';
+import { useSelector } from 'react-redux';
+import { set } from 'firebase/database';
+
 
 const StudentStats = () => {
+    const [list, setlist] = useState([]);
+    const {students} = useSelector((state)=> state.student_info)
+
+    useEffect(()=>{
+        setlist(students)
+    },[students])
+
+
+
     
     const ColorButton = styled(Button)(({ theme }) => ({
         color: 'white',
@@ -22,7 +34,7 @@ const StudentStats = () => {
             <ul className='flex flex-col gap-3'>
                 <li className='bg-[#111111] p-4 rounded-xl'>
                     <span className='flex items-center gap-3 text-sm'><span>Total Students</span> <SlShareAlt /> </span>
-                    <h3 className=' text-2xl'>3569</h3>
+                    <h3 className=' text-2xl'>{list.length}</h3>
                 </li>
 
                 <li className='bg-[#111111] p-4 rounded-xl'>
