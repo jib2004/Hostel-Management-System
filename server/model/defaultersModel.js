@@ -21,6 +21,10 @@ const defaulterSchemer = new mongoose.Schema({
         type:Date,
         default: Date.now()
     },
+    profilePicture:{
+        type:String,
+        
+    },
     studentId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Student', 

@@ -49,9 +49,9 @@ adminRoute.post("/adminLogin",async (req,res)=>{
         if(!validPassword){
             return res.status(400).json({message:"Password Incorrect"})
         }
-        const token = jwt.sign({id:adminUser._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
+        const token = jwt.sign({id:adminUser._id, admin:adminUser.isAdmin},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
         
-        res.status(200).cookie("token",token,{
+        res.status(201).cookie("token",token,{
             httpOnly : true
         }).json(adminUser._doc)
     } catch (error) {

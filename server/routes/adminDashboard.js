@@ -102,6 +102,7 @@ adminDashboard.post('/defaulter/:id',cookieAuth,async(req,res)=>{
                 reason,
                 price,
                 date,
+                profilePicture:student.profilePicture,
                 studentId: student._id, // Important: Store the student's ID for reference
         })
 
@@ -117,6 +118,46 @@ adminDashboard.post('/defaulter/:id',cookieAuth,async(req,res)=>{
         console.log(error)
         res.status(500).json({ message: 'Internal server error' });
     }
+})
+
+adminDashboard.get("/defaulters",cookieAuth,async (req,res)=>{
+        try {
+            const defaulters = await DefaulterModel.find()
+            res.status(200).json(defaulters)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({message:"Internal server Error"})
+        }
+})
+
+adminDashboard.get("/defaulter/:id", async(req,res)=>{
+    const {id} = req.params
+    try {
+        const defaulter =await DefaulterModel.findById(id)
+        res.status(200).json(defaulter)
+    } catch (error) {
+        res.status(500).json({message:"Internal server Error"})
+    }
+})
+
+adminDashboard.delete("/defaulter/:id", async(req,res)=>{
+    const {id} = req.params
+    try {
+        const defaulter =await DefaulterModel.findByIdAndDelete(id)
+        const studentId =defaulter.studentId
+        const student = await Student.findById(studentId)
+        
+        if(student){
+          student.defaulter = false
+          await student.save()
+        }
+        res.status(200).json(defaulter)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Internal server Error"})
+    }
+    
+
 })
 
 export default adminDashboard

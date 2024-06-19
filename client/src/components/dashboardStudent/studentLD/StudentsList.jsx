@@ -20,7 +20,7 @@ const StudentsList = () => {
                 setStudentNames(response.data)
                 dispatch(getStudent(response.data))
                 setOptions(response.data.map(studentN => studentN.name))
-                console.log(response.data)
+                
                 
             } catch (error) {
                 console.log(error)
@@ -37,7 +37,7 @@ const StudentsList = () => {
  
    
   return (
-    <div className="text-white  basis-1/2 bg-[#202020] p-4 h-[full">{
+    <div className="text-white basis-1/2 bg-[#202020] p-4 h-[full]">{
         students === null ? (
             <div className=" w-full p-2 bg-[#111111] ">
                 No Students Currently...

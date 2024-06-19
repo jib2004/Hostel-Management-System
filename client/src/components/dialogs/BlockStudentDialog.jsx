@@ -23,6 +23,7 @@ const BlockStudentDialog = () => {
   const blockStudent = async() =>{
     setBlock(!block)
     try {
+      setBlock(!block)
         const respnonse = await axios.put(`http://localhost:5000/admin/student/block/${students._id}`)
         
         setOpen(false);
