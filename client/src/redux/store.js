@@ -1,5 +1,6 @@
 import { configureStore,combineReducers } from '@reduxjs/toolkit'
 import userSliceReducer from './userSlice/userSlice'
+import hostelSliceReducer from './hostelSlice/hostelSlice'
 import defaultersInfoSlice from './studentInfoSlice/defaultersInfoSlice'
 import studentInfoSliceReducer from './studentInfoSlice/studentInfoSlice'
 import {persistReducer} from 'redux-persist'
@@ -11,7 +12,8 @@ import persistStore from 'redux-persist/es/persistStore'
 const rootReducer = combineReducers({
     user:userSliceReducer,
     student_info:studentInfoSliceReducer,
-    defaulter:defaultersInfoSlice
+    defaulter:defaultersInfoSlice,
+    hostel:hostelSliceReducer
     
 
 })

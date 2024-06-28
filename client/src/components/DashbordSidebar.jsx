@@ -9,7 +9,7 @@ import { GiHotMeal } from "react-icons/gi";
 const DashbordSidebar = () => {
     const path = useLocation().pathname
   return (
-    <div className='bg-[#202020] text-[#B0B0B0] text-xl basis-[15%] rounded-xl'>
+    <div className='bg-[#202020] text-[#B0B0B0] text-lg basis-[15%] rounded-xl'>
         <ul>
             <li className={`py-3 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/dashboard" && 'bg-[#2E2E2E] text-white'}`}>
                 <Link to={'/admin/dashboard'}><span className={` inline-block ${path === "/admin/dashboard" && 'text-[#00FFF5]' }`}><FiBarChart2 /></span> Analytics </Link>

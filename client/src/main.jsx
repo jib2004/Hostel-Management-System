@@ -40,6 +40,7 @@ import DefaulterInfo from './components/dashboardStudent/studentLD/DefaulterInfo
 axios.defaults.baseURL = 'http://localhost:5000'
 axios.defaults.withCredentials = true
 
+
 const router = createBrowserRouter([
   {
     path:"/",
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
   },
   {
     path:"/student/dashboard",
+    element:(
+      <PrivateRoute>
+    <StudentDashBoard />
+    </PrivateRoute>
+  )
+  },
+  {
+    path:"/student/:section",
     element:(
       <PrivateRoute>
     <StudentDashBoard />
@@ -105,9 +114,13 @@ const router = createBrowserRouter([
   )
   },
   {
-    path:"/admin/rooms",
+    path:"/admin/rooms/",
     element:<Rooms />
   }, 
+  {
+    path:"/admin/rooms/:section",
+    element:<Rooms />
+  },
   {
     path:"/admin/attendance",
     element:<Attendance />

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link,useLocation } from "react-router-dom";
 import { FaCalendar,FaBell,FaUser } from "react-icons/fa";
 import { useSelector } from 'react-redux'
+import { IoLogOut } from "react-icons/io5"
 
 const AdminNav = () => {
     const path = useLocation().pathname
@@ -16,7 +17,7 @@ const AdminNav = () => {
         <li className={path.includes("/admin/dashboard") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/dashboard'}><span>Dashboard</span> </Link>
         </li>
-        <li className={path === "/admin/rooms" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
+        <li className={path.includes("/admin/rooms") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/rooms'}><span>Rooms</span> </Link>
         </li>
         <li className={path === "/admin/attendance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
@@ -41,8 +42,13 @@ const AdminNav = () => {
         <li className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title={currentUser.name}> 
             <FaUser /> 
         </li>
+        
 
         <span className='text-lg'>{currentUser.name}</span>
+
+        <li className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title="log out"> 
+            <IoLogOut /> 
+        </li>
 
       </ul>
     </nav>
