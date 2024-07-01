@@ -38,7 +38,7 @@ const studentSchema = new mongoose.Schema({
     emergencyPhoneNumber:{
         type:String,
         required:true,
-        unique:true,
+        
     },
     address:{
         type:String,
@@ -58,6 +58,22 @@ defaulter:{
     default:false
 },
 isBlocked:{
+    type:Boolean,
+    default:false
+},
+inHostel:{
+    type:Boolean,
+    default:false
+},
+hostelName:{
+    type:String,
+    default:""
+},
+isPaid:{
+    type:Boolean,
+    default:false
+},
+isComplained:{
     type:Boolean,
     default:false
 }

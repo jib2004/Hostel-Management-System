@@ -18,7 +18,11 @@ studentRoute.post("/student",async (req,res)=>{
         gender ,
         profilePicture,
         defaulter,
-        isBlocked
+        isBlocked,
+        inHostel,
+        hostelName,
+        isPaid,
+        isComplained
     } = req.body
 
     if(!name || !email || !password || !emergencyContactName || !phoneNumber || !emergencyPhoneNumber || !address || !gender ){
@@ -39,7 +43,11 @@ studentRoute.post("/student",async (req,res)=>{
         gender,
         profilePicture,
         defaulter,
-        isBlocked
+        isBlocked,
+        inHostel,
+        hostelName,
+        isPaid,
+        isComplained
     })
 
 
@@ -48,6 +56,7 @@ studentRoute.post("/student",async (req,res)=>{
      res.json("Sign-up Successful")
 
     }catch(e){
+        console.log(e)
         return res.status(500).json({message: e.message})
     }
  
@@ -76,7 +85,7 @@ studentRoute.post("/login", async(req,res)=>{
             res.status(400).json("Incorrect Password")
         }
 
-        const token = jwt.sign({"id": studentEmail._id}, process.env.JWT_SECRET_KEY,{}) // payload, jwt_key, time it expires {expiresIn: 5m}
+        const token = jwt.sign({"id": studentEmail._id}, process.env.JWT_SECRET_KEY,{expiresIn:"1d"}) // payload, jwt_key, time it expires {expiresIn: 5m}
 
         res.cookie("token",token,{
             httpOnly:true // it is not available to javascript
@@ -86,6 +95,8 @@ studentRoute.post("/login", async(req,res)=>{
         console.log(error)
     }
 })
+
+
 
 
 export default studentRoute

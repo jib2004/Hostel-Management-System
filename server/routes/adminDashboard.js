@@ -3,14 +3,13 @@ import Admin from '../model/adminModel.js';
 import { cookieAuth } from '../JWTVerifyUsers/verify.js';
 import  Student  from '../model/studentModel.js'
 import DefaulterModel from '../model/defaultersModel.js';
+import  Hostel  from '../model/hostelModel.js';
 
 
 
 const adminDashboard = express.Router()
 
-adminDashboard.get("/",(req,res)=>{
-    res.json("Working Yesss")
-})
+
 
 adminDashboard.get("/students",cookieAuth,async (req,res)=>{
     try {
@@ -70,21 +69,21 @@ adminDashboard.delete('/student/:id',cookieAuth, async(req,res)=>{
     }
 })
 
-// adminDashboard.get('/search',cookieAuth,(req,res)=>{
-//     const {query} = req.query
-//     try {
-//         const searchQuery = {name:{$eq:query}}
-//         const student = Student.find(searchQuery).select("-password")
-//         if(!student){
-//             res.status(400).json({message:"Not found"})
-//         }
-//         res.status(200).json(student)
+adminDashboard.get('/search',cookieAuth,(req,res)=>{
+    const searchTerm = req.query.search
+    try {
+        // const searchQuery = {name:{$eq:query}}
+        const student = Student.find({name:{$eq:searchTerm}})
+        if(!student){
+            res.status(400).json({message:"Not found"})
+        }
+        res.status(200).json(student)
  
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})  
 
 adminDashboard.post('/defaulter/:id',cookieAuth,async(req,res)=>{
     const {name,reason,price,date} = req.body
@@ -156,8 +155,42 @@ adminDashboard.delete("/defaulter/:id", async(req,res)=>{
         console.log(error)
         res.status(500).json({message:"Internal server Error"})
     }
-    
+})
 
+adminDashboard.post('/hostel',cookieAuth,async (req,res)=>{
+    const {name,plan,numOfFloors,roomsPerFloor,capacity,numOfKitchens,price,description,selectedSpace,dateOfCreation} = req.body
+    if(!name || !plan || !numOfFloors ||!roomsPerFloor||!capacity||!numOfKitchens||!price||!description){
+        return res.status(400).json({message:"Please fill all the fields"})
+    }
+
+    try {
+        const newHostel =await Hostel.create({
+            name,
+            plan,
+            numOfFloors,
+            roomsPerFloor,
+            capacity,
+            numOfKitchens,
+            price,
+            description,
+            selectedSpace,
+            dateOfCreation
+        })
+        await newHostel.save()
+
+        res.status(201).json(newHostel)
+    } catch (error) {
+        res.status(500).json({title:"Internal Server Error",message:error })
+    }
+})
+
+adminDashboard.get('/hostels',cookieAuth,async(req,res)=>{
+    try {
+        const hostels = await Hostel.find()
+        res.status(200).json(hostels)
+    } catch (error) {
+        res.status(500).json({title:"Internal Server Error",message:error })
+    }
 })
 
 export default adminDashboard

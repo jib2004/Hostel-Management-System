@@ -1,16 +1,20 @@
 import {useState, useEffect,useRef} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { getHostel } from '../../../redux/hostelSlice/hostelSlice'
 import axios from 'axios'
 import PayStack from '../../PayStack'
+import { toast,Toaster } from 'sonner';
+import Reciept from '../../Reciept'
+import {isSignInSuccess } from '../../../redux/userSlice/userSlice';
 
 const StudentRooms = () => {
 const [hostels,setHostels] = useState([])
+const {currentUser} = useSelector(state=> state.user)
 const [plan,setPlan] = useState()
 const [amount,setAmount] = useState(false)
 const dispatch =useDispatch()
 const spanRef = useRef(null)
-
+const [paid, setPaid] = useState({})
 
 
 useEffect(()=>{
@@ -18,7 +22,17 @@ useEffect(()=>{
       const response = await axios.get("http://localhost:5000/student/hostel")
       setHostels(response.data)
     }
+    const getPaid = async() =>{
+      try {
+          const response = await axios.get(`http://localhost:5000/student/${currentUser._id}`)
+          setPaid(response.data)
+          dispatch(isSignInSuccess(response.data))
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
+    getPaid()
     fetchHostel()
 
 },[plan])
@@ -33,6 +47,7 @@ const handlePlan = (e) =>{
 }
 
 const handleAmount =async (id)=>{
+  if(paid.isPaid) return toast.error("You have already paid ")
   const response =await axios.get(`http://localhost:5000/student/hostel/${id}`)
   setAmount(true)
   dispatch(getHostel(response.data))
@@ -41,8 +56,12 @@ const handleAmount =async (id)=>{
 
   return (
     <div className='overflow-x-hidden'>
+      <div className={`${paid.isPaid? 'hidden':'block' }`}>
       <h1 className=' text-xl font-semibold px-4 py-2 '>Student Rooms (Kindly select a room of your choice)</h1> 
-
+    <span className=' text-[13px]  font-semibold px-4 py-2 text-justify'>
+      Before you click on pay always ensure
+       to click on pick first all the time
+       </span>
       <div className='flex items-center md:gap-7'>
         <span className='text-xl font-medium px-4 py-2'>Filter :</span>
         <div>
@@ -73,7 +92,7 @@ const handleAmount =async (id)=>{
           </div>
         ))
         : 
-        hostels.map(hostel=>(
+        hostels?.map(hostel=>(
           <div key={hostel._id} className='bg-[#edc8f7] px-4 py-2'>
            
             <h1 className='text-xl font-semibold'>{hostel.name}</h1>
@@ -83,13 +102,16 @@ const handleAmount =async (id)=>{
             <p className='text-lg font-semibold'>&#8358; <span ref={spanRef}>{hostel.price}</span></p>
 
             <div className='flex justify-between'>
-             <PayStack />
+             {paid.isPaid? '': <PayStack />}
             <button onClick={()=> handleAmount(hostel._id)}  className='bg-[#D945FD] px-4 py-2  md:w-auto hover:bg-[#a334be] active:bg-[#D945FD] duration-300'>Pick</button>
             </div>
           </div>
         ))
         }
       </div>
+      </div>
+        <div>{paid.isPaid && <Reciept />}</div>
+      <Toaster/>
     </div>
   )
 }

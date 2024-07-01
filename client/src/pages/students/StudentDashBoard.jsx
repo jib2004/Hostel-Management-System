@@ -28,7 +28,7 @@ const StudentDashBoard = () => {
       <div className='bg-[#F8F2F9] min-h-screen  md:flex relative overflow-x-hidden'>
       <div className="md:hidden text-[25px]" onClick={handleDisplay}><GiHamburgerMenu/></div>
       <StudentSidebar display={sidebar} nodisplay={handleDisplay}/>
-      <div className='md:ml-[260px]'>
+      <div className='md:ml-[270px] md:basis-[70%]'>
       {path  === '/student/dashboard' && <Student />}
       {path  === '/student/room' && <StudentRooms />}
       {path  === '/student/attendance' && <Attendance />}

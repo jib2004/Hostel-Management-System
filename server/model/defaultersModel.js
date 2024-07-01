@@ -28,7 +28,7 @@ const defaulterSchemer = new mongoose.Schema({
     studentId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Student', 
-    required: true ,
+    require: true,
     unique:true
 }, // Existing reference
 })

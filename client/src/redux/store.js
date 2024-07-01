@@ -6,6 +6,7 @@ import studentInfoSliceReducer from './studentInfoSlice/studentInfoSlice'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import persistStore from 'redux-persist/es/persistStore'
+import loadingSliceReducer from './loadingSlice/loadingSlice'
 
 
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     user:userSliceReducer,
     student_info:studentInfoSliceReducer,
     defaulter:defaultersInfoSlice,
-    hostel:hostelSliceReducer
+    hostel:hostelSliceReducer,
+    loading:loadingSliceReducer
     
 
 })

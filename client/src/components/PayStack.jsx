@@ -14,8 +14,8 @@ const PayStack = () => {
         reference: (new Date()).getTime().toString(),
         email: currentUser.email,
         metadata:{
-            name:currentUser.name,
-            hostel:currentHostel.name
+            name:currentUser?.name,
+            hostel:currentHostel?.name
         },
         amount: currentHostel?.price * 100,
         publicKey:import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
