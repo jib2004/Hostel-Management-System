@@ -4,14 +4,14 @@ import backgroundImage from "../assets/a background im e6e7b605-e213-4c1b-83ae-c
 
 const HomePage = () => {
   return (
-    <div className='h-screen'>
+    <div className='h-screen w-screen overflow-x-hidden'>
         <HeaderTop />
-        <HeaderBottom />
-         <div className={` w-full h-full  bg-center bg-no-repeat bg-cover ` } style={{backgroundImage:`url(${backgroundImage})`}}>
-          
+        
+         <div className={` w-full h-full  md:bg-center bg-no-repeat bg-contain md:bg-cover ` } style={{backgroundImage:`url(${backgroundImage})`}}>
          </div>
 
-         HHDHdhhd
+
+
         </div>
   )
 }

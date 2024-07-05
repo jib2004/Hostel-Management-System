@@ -1,14 +1,19 @@
 import { useEffect,useState } from "react"
 import axios from "axios"
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
 import { FaXmark } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { isSignInSuccess } from "../redux/userSlice/userSlice";
+import Complaint from "./student/sidebarContent/Complaint";
 
 
 const StudentComplaint = () => {
     const {currentUser} = useSelector(state => state.user)
+    const dispatch = useDispatch()
     const [complaints, setComplaints] = useState({})
-    const [deleteComplaint,setDeleteComplaint] = useState({})
+    const navigate = useNavigate()
+
     useEffect(()=>{
         const fetchComplaint = async ()=>{
             const response  =await axios.get(`http://localhost:5000/student/complaint/${currentUser._id}`)
@@ -18,12 +23,14 @@ const StudentComplaint = () => {
         }
         fetchComplaint()
 
-    },[])
+    },[currentUser])
 
     const handleAgree =async () =>{
         
         const response = await axios.put(`http://localhost:5000/student/studentComplaint/${currentUser._id}`)
         const data = response.data
+        
+       
         
         
     }

@@ -6,7 +6,7 @@ const HallFacilities = () => {
   return (
     <div>
          <HeaderTop />
-        <HeaderBottom />
+       
         HallFacilities</div>
   )
 }

@@ -28,7 +28,7 @@ const Complaint = () => {
     setComplaint({...complaint,[e.target.name]:e.target.value})
   }
 
-  const handleSubmit = async(e) =>{
+  const handleSubmit = async() =>{
     
     dispatch(startLoading())
     try {
@@ -56,7 +56,7 @@ const Complaint = () => {
     }
 
     getComplaints()
-  },[])
+  },[currentUser])
 
 
  

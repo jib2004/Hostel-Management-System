@@ -5,37 +5,24 @@ import axios from 'axios'
 import PayStack from '../../PayStack'
 import { toast,Toaster } from 'sonner';
 import Reciept from '../../Reciept'
-import {isSignInSuccess } from '../../../redux/userSlice/userSlice';
+
 
 const StudentRooms = () => {
 const [hostels,setHostels] = useState([])
 const {currentUser} = useSelector(state=> state.user)
 const [plan,setPlan] = useState()
-const [amount,setAmount] = useState(false)
 const dispatch =useDispatch()
 const spanRef = useRef(null)
-const [paid, setPaid] = useState({})
-
 
 useEffect(()=>{
     const fetchHostel = async ()=>{
       const response = await axios.get("http://localhost:5000/student/hostel")
       setHostels(response.data)
     }
-    const getPaid = async() =>{
-      try {
-          const response = await axios.get(`http://localhost:5000/student/${currentUser._id}`)
-          setPaid(response.data)
-          dispatch(isSignInSuccess(response.data))
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    getPaid()
+    
     fetchHostel()
 
-},[plan])
+},[plan,currentUser])
 
 const handlePlan = (e) =>{
   const {value} = e.target
@@ -47,24 +34,23 @@ const handlePlan = (e) =>{
 }
 
 const handleAmount =async (id)=>{
-  if(paid.isPaid) return toast.error("You have already paid ")
+  if(currentUser.isPaid) return toast.error("You have already paid ")
   const response =await axios.get(`http://localhost:5000/student/hostel/${id}`)
-  setAmount(true)
   dispatch(getHostel(response.data))
   
 }
 
   return (
     <div className='overflow-x-hidden'>
-      <div className={`${paid.isPaid? 'hidden':'block' }`}>
+      <div className={`${currentUser.isPaid? 'hidden':'block' }`}>
       <h1 className=' text-xl font-semibold px-4 py-2 '>Student Rooms (Kindly select a room of your choice)</h1> 
-    <span className=' text-[13px]  font-semibold px-4 py-2 text-justify'>
-      Before you click on pay always ensure
-       to click on pick first all the time
-       </span>
-      <div className='flex items-center md:gap-7'>
+    <p className=' text-[13px]  font-semibold px-4 py-2 '>
+      Before you click on pay always ensure to click on pick first all the time
+       </p>
+      <div className='flex  items-center md:gap-7'>
         <span className='text-xl font-medium px-4 py-2'>Filter :</span>
         <div>
+          
          <span className='text-lg font-semibold mr-2'>Plan :</span>  
           <select name="" id="" onChange={handlePlan} className='px-4 py-2'>
             <option value="" hidden selected disabled>kindly Select a plan</option>
@@ -102,7 +88,7 @@ const handleAmount =async (id)=>{
             <p className='text-lg font-semibold'>&#8358; <span ref={spanRef}>{hostel.price}</span></p>
 
             <div className='flex justify-between'>
-             {paid.isPaid? '': <PayStack />}
+             {currentUser.isPaid? '': <PayStack />}
             <button onClick={()=> handleAmount(hostel._id)}  className='bg-[#D945FD] px-4 py-2  md:w-auto hover:bg-[#a334be] active:bg-[#D945FD] duration-300'>Pick</button>
             </div>
           </div>
@@ -110,7 +96,7 @@ const handleAmount =async (id)=>{
         }
       </div>
       </div>
-        <div>{paid.isPaid && <Reciept />}</div>
+        <div>{currentUser.isPaid && <Reciept />}</div>
       <Toaster/>
     </div>
   )

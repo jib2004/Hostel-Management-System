@@ -83,7 +83,7 @@ const Register = () => {
   
   return (
     <div className=' min-h-screen  py-16 bg-[hsl(0,0%,49%)]'>
-      <form className=' w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl' onSubmit={handleSubmit}>
+      <form className='w-[95vw] md:w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl' onSubmit={handleSubmit}>
         <h1 className='text-3xl text-white font-light mb-4'>Add Student</h1>
         <div className='mb-3 '>
         <TextField
@@ -197,7 +197,7 @@ const Register = () => {
 
 
       <div>
-        <span className='text-[#B0B0B0]'>Are you a student already ?</span> <Link to={"/student/login"} className='underline text-[#00868D]'>Sign In</Link>
+        <span className='text-[#B0B0B0]'>Are you a student already ?</span> <Link to={"/login"} className='underline text-[#00868D]'>Sign In</Link>
       </div>
       </form>
 

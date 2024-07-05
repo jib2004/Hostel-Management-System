@@ -4,6 +4,7 @@ const complaintSchema = new mongoose.Schema({
     name:{
         type:String,
         require:true,
+        
     },
     hostel:{
         type:String,
@@ -12,7 +13,7 @@ const complaintSchema = new mongoose.Schema({
     room:{
         type:String,
         require:true,
-        unique:true
+        
     },
     complaint:{
         type:String,

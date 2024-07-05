@@ -76,6 +76,10 @@ isPaid:{
 isComplained:{
     type:Boolean,
     default:false
+},
+isCheckOut:{
+    type:Boolean,
+    default:false
 }
    
 

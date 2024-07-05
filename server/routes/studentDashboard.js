@@ -4,6 +4,7 @@ import  Hostel  from '../model/hostelModel.js';
 import { paymentModel } from "../model/paymentModel.js";
 import  Student  from '../model/studentModel.js'
 import ComplaintModel from "../model/complaintModel.js";
+import CheckOutModel from "../model/checkOutModel.js";
 
 const studentDashboard = express.Router()
 
@@ -166,6 +167,76 @@ studentDashboard.put('/complaint/:id',studentVerify,async (req,res)=>{
     }
 })
 
+studentDashboard.post('/checkOut/:id',studentVerify,async(req,res)=>{
+        const {id} = req.params
+        const {name,hostel,room,dateOfLeave,dateOfArrival,reasonForLeave,isApproved,studentId} = req.body
+        if(!name|| !hostel || !room || !dateOfLeave || !dateOfArrival || !reasonForLeave){
+         return res.status(400).json({message:'Kindly fill all fields'})
+        }
+        const student = await Student.findById(id)
+
+        try {
+            const checkOut = await CheckOutModel.create({
+                name,
+                hostel,
+                room,
+                dateOfLeave,
+                dateOfArrival,
+                reasonForLeave,
+                studentId:student._id
+            }) 
+            student.isCheckOut = true
+            await student.save()
+            await checkOut.save()
+            res.status(200).json(checkOut)
+        } catch (error) {
+            res.status(500).json({message:'Internal Server Error', errorMessage:error})
+        }
+})
+
+studentDashboard.get('/checkOut/:id',studentVerify,  async (req,res)=>{
+    const {id} = req.params
+    try {
+        const student = await Student.findById(id)
+        const checkOut = await CheckOutModel.find({studentId:student._id})
+        if(!checkOut){
+            return res.status(404).json({message:'No CheckOut Found'})
+        }
+        res.status(200).json(checkOut)
+
+    } catch (error) {
+        res.status(500).json({message:'Internal Server Error', errorMessage:error})
+    }
+})
+
+studentDashboard.delete('/checkOut/:id',studentVerify,async(req,res)=>{
+    const {id} = req.params
+    try {
+        const student = await Student.findById(id)
+        if(!student){
+            return res.status(404).json({message:'No Student Found'})
+        }
+        student.isCheckOut = false
+        await student.save()
+        const userId = student._id
+        const checkOut = await CheckOutModel.findByIdAndDelete(userId)
+        if(!checkOut){
+            return res.status(404).json({message:'No CheckOut Found'})
+        }
+
+        res.status(200).json({message:'CheckOut Deleted Successfully'})
+    
+    } catch (error) {
+        res.status(500).json({message:'Internal Server Error', errorMessage:error})
+    }
+})  
+
+studentDashboard.get('/logout',(req,res)=>{
+    res.clearCookie('token').json({message:"Successfully Logged Out"})
+})
+
+
+
 studentDashboard.get('/:id',studentVerify,async (req,res)=>{
     const {id} = req.params
     try {
@@ -176,5 +247,5 @@ studentDashboard.get('/:id',studentVerify,async (req,res)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-
+ 
 export default studentDashboard

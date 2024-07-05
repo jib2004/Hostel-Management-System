@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 import StudentSidebar from '../../components/student/StudentSidebar'
 import Student from '../../components/student/sidebarContent/Student'
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -9,6 +9,7 @@ import Complaint from '../../components/student/sidebarContent/Complaint';
 import CheckOut from '../../components/student/sidebarContent/CheckOut';
 import BlockedStudent from '../../components/student/BlockedStudent';
 import {useSelector} from 'react-redux'
+
 
 
 const StudentDashBoard = () => {
@@ -26,15 +27,16 @@ const StudentDashBoard = () => {
         :
         (
       <div className='bg-[#F8F2F9] min-h-screen  md:flex relative overflow-x-hidden'>
-      <div className="md:hidden text-[25px]" onClick={handleDisplay}><GiHamburgerMenu/></div>
+      <div className="md:hidden text-[25px] p-2 cursor-pointer w-fit" onClick={handleDisplay}><GiHamburgerMenu/></div>
       <StudentSidebar display={sidebar} nodisplay={handleDisplay}/>
       <div className='md:ml-[270px] md:basis-[70%]'>
       {path  === '/student/dashboard' && <Student />}
       {path  === '/student/room' && <StudentRooms />}
-      {path  === '/student/attendance' && <Attendance />}
       {path  === '/student/complaint' && <Complaint />}
       {path  === '/student/check-out' && <CheckOut />}
       </div>
+
+      
     </div>
         )
       }

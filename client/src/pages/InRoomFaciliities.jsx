@@ -6,7 +6,7 @@ const InRoomFaciliities = () => {
   return (
     <div>
        <HeaderTop />
-        <HeaderBottom />
+        
       InRoomFaciliities</div>
   )
 }

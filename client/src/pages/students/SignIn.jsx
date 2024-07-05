@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { isSignInStart,isSignInSuccess,isSignInFailure } from '../../redux/userSlice/userSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
+import { Toaster,toast } from 'sonner';
 
 const SignIn = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -38,17 +39,18 @@ const SignIn = () => {
       }
       catch(e){
         dispatch(isSignInFailure(e.message))
+        console.log(error)
         toast.error(error)
       }
 
-  }
+  } 
 
 
 
   useEffect(()=>{},[selectedImage])
   return (
     <div className=' min-h-screen  py-16 bg-[hsl(0,0%,49%)]'>
-      <form className=' w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl' onSubmit={handleSubmit}>
+      <form className='w-[90vw] md:w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl' onSubmit={handleSubmit}>
         <h1 className='text-3xl text-white font-light mb-4'>Sign In</h1>
        
 
@@ -92,7 +94,7 @@ const SignIn = () => {
       </form>
 
 
-      
+      <Toaster  />      
     </div>
   )
 }

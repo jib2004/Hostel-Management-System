@@ -91,7 +91,7 @@ studentRoute.post("/login", async(req,res)=>{
             httpOnly:true // it is not available to javascript
         }).json(studentEmail._doc)
         
-    } catch (error) {
+    } catch (error) { 
         console.log(error)
     }
 })

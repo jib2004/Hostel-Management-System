@@ -1,15 +1,15 @@
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 import { toast,Toaster } from 'sonner';
-
+import {isSignInSuccess } from '../redux/userSlice/userSlice';
 
 
 const PayStack = () => {
     const {currentUser} = useSelector(state=> state.user)
     const {currentHostel} = useSelector(state=> state.hostel)
 
- 
+    const dispatch =useDispatch()
     const config ={
         reference: (new Date()).getTime().toString(),
         email: currentUser.email,
@@ -37,7 +37,12 @@ const PayStack = () => {
             amountPaid:currentHostel.price
            })
            toast.success('Payment Successful');
+
+           const res = await axios.get(`http://localhost:5000/student/${currentUser._id}`)
+           dispatch(isSignInSuccess(res.data))
         }
+
+       
 
       } catch (error) {
       
