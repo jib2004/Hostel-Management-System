@@ -1,12 +1,12 @@
 import { SlShareAlt } from "react-icons/sl";
 const StudentUpdate = () => {
   return (
-    <div className="bg-[#202020] w-full h-[50%] p-3 overflow-y-scroll" style={{
+    <div className="bg-[#202020] w-full h-[400px] p-3 pt-0 overflow-y-scroll" style={{
         scrollbarWidth: 'thin',
         scrollbarColor: 'grey transparent',
         
     }}>
-        <h1 className="text-white text-xl mb-2 flex items-center">
+        <h1 className="text-white text-xl bg-[#202020] mb-2 h-[50px] flex items-center sticky top-0">
         Student Update <SlShareAlt className="inline-block" />
         </h1>
 

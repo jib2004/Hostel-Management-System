@@ -1,8 +1,9 @@
-import { useState } from 'react'; 
+import { useState,useEffect } from 'react'; 
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses }  from '@mui/material/LinearProgress';
 import { SlShareAlt } from "react-icons/sl";
+import axios from 'axios';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
@@ -19,7 +20,20 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 
 export default function LinearDeterminate() {
-    const Total = 158
+  const [complaint, setComplaint] = useState([]);
+  useEffect(()=>{
+    async function getComplaints(){
+      try {
+         const response = await axios.get('http://localhost:5000/admin/complaint');
+         setComplaint(response.data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getComplaints();
+  },[])
+    const Total = complaint?.length
+    
     const resolved = 96
     const open = 68
 

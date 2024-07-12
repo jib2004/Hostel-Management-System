@@ -85,7 +85,7 @@ const AdminLogin = () => {
 
 
       <div>
-        <span className='text-[#B0B0B0]'>Have you never stayed with us ?</span> <Link to={"/student/register"} className='underline text-[#00868D]'>Sign Up</Link>
+        <span className='text-[#B0B0B0]'>Have you never stayed with us ?</span> <Link to={"/admin/register"} className='underline text-[#00868D]'>Sign Up</Link>
       </div>
       </form>
 

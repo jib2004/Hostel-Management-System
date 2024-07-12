@@ -4,11 +4,40 @@ import { cookieAuth } from '../JWTVerifyUsers/verify.js';
 import  Student  from '../model/studentModel.js'
 import DefaulterModel from '../model/defaultersModel.js';
 import  Hostel  from '../model/hostelModel.js';
-
+import { paymentModel } from '../model/paymentModel.js';
+import CheckOutModel from '../model/checkOutModel.js';
+import ComplaintModel from '../model/complaintModel.js';
 
 
 const adminDashboard = express.Router()
 
+adminDashboard.get('/hostel',cookieAuth,async(req,res)=>{
+    try {
+     const hostel = await Hostel.find()
+     res.status(200).json(hostel)
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Error", errorMessage:error})
+    }
+})
+
+adminDashboard.get('/paymentMade',cookieAuth,async (req,res)=>{
+    try {
+        const payment = await paymentModel.find()
+        
+        res.status(200).json(payment)
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Error", errorMessage:error})
+    }
+})
+
+adminDashboard.get("/complaint",cookieAuth, async(req,res)=>{
+    try {
+        const complaint = await ComplaintModel.find()
+        res.status(200).json(complaint)
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Error", errorMessage:error})
+    }
+})
 
 
 adminDashboard.get("/students",cookieAuth,async (req,res)=>{

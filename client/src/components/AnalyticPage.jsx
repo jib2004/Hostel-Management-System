@@ -6,14 +6,14 @@ import Emergency from './analyticComponenets/Emergency';
 
 const AnalyticPage = () => {
   return (
-    <div className="flex basis[85%] w-full gap-4">
-        <div className=" basis-[75%]">
+    <div className="flex    gap-5 ml-[255px]">
+        <div className=" basis-[70%]">
             <Hostelinfo />
             <PieChartWithCenterLabel />
             <LinearDeterminate />
         </div>
 
-        <div className=" basis-[25%] flex flex-col justify-between gap-3 h-full">
+        <div className=" basis-[25%] flex flex-col justify-between gap-3">
           
               <StudentUpdate />
               <Emergency />
