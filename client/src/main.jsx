@@ -35,6 +35,8 @@ import AdminPrivateRoute from './components/AdminPrivateRoute';
 import AdminDashboardStudent from './pages/admin/AdminDashboardStudent.jsx';
 import StudentInfo from './components/dashboardStudent/studentLD/StudentInfo.jsx';
 import DefaulterInfo from './components/dashboardStudent/studentLD/DefaulterInfo.jsx';
+import Forgot from './pages/students/Forgot.jsx';
+import AdminComplaint from './components/adminDashboardComponents/AdminComplaint.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -68,6 +70,10 @@ const router = createBrowserRouter([
     element:<SignIn />
   },
   {
+    path:"/student/api/forgot-password",
+    element:<Forgot />
+  },
+  {
     path:"/student/dashboard",
     element:(
       <PrivateRoute>
@@ -98,6 +104,10 @@ const router = createBrowserRouter([
   {
     path:"/admin/dashboard/student",
     element:<AdminDashboardStudent />
+  },
+  {
+    path:"/admin/dashboard/complaint",
+    element:<AdminComplaint />
   },
   {
     path:"/admin/dashboard/student/:id",

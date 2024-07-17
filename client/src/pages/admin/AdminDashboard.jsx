@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const {currentUser} = useSelector((state) => state.user)
   const path = useLocation().pathname
   return (
-    <div className=' overflow-x-hidden bg-black relative'>
+    <div className='  bg-black'>
         <AdminNav />
         <div className=" mt-2 gap-2 py-2   ">
         <DashboardSidebar />

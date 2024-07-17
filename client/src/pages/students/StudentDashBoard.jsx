@@ -4,7 +4,6 @@ import Student from '../../components/student/sidebarContent/Student'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLocation } from 'react-router-dom';
 import StudentRooms from '../../components/student/sidebarContent/StudentRooms';
-import Attendance from '../../components/student/sidebarContent/Attendance';
 import Complaint from '../../components/student/sidebarContent/Complaint';
 import CheckOut from '../../components/student/sidebarContent/CheckOut';
 import BlockedStudent from '../../components/student/BlockedStudent';

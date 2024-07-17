@@ -1,21 +1,20 @@
 import AdminNav from '../../components/AdminNav'
 import DashboardSidebar from "../../components/DashbordSidebar";
-import Student from '../../components/dashboardStudent/Student';
+import ComlaintsAdmin from './ComlaintsAdmin';
 
 
-const AdminDashboardStudent = () => {
- 
+const AdminComplaint = () => {
   return (
     <div className=' min-h-screen bg-black'>
     <AdminNav />
     <div className=" mt-2 gap-2 py-2  ">
     <DashboardSidebar />
-     <Student />
+    <ComlaintsAdmin />
     
 
     </div>
-</div>    
+    </div>
   )
 }
 
-export default AdminDashboardStudent
+export default AdminComplaint

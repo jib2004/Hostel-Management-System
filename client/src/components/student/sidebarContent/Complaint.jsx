@@ -4,14 +4,12 @@ import { toast,Toaster } from 'sonner';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { startLoading,stopLoading } from "../../../redux/loadingSlice/loadingSlice";
-import CircularProgress from '@mui/material/CircularProgress';
 import StudentComplaint from "../../StudentComplaint";
 
 
 const Complaint = () => {
   const dispatch = useDispatch()
   const {currentUser} = useSelector(state => state.user)
-  const {isLoading} = useSelector(state => state.loading)
   const [maxCharacter,setMaxCharacter] = useState(0)
   const [complaint,setComplaint] = useState({
     name:currentUser.name,
@@ -32,16 +30,12 @@ const Complaint = () => {
     
     dispatch(startLoading())
     try {
-      const response = await axios.post(`http://localhost:5000/student/complaint/${currentUser._id}`,complaint)
+       await axios.post(`http://localhost:5000/student/complaint/${currentUser._id}`,complaint)
       toast.success('Complaint Successfully Filed')
-      setComplaint({...complaint,room:''})
       dispatch(stopLoading())
-      console.log(isLoading)
     } catch (error) {
       dispatch(stopLoading())
-      console.log(isLoading)
       toast.error('Failed to execute')
-      
     }
   }
 
@@ -86,7 +80,7 @@ const Complaint = () => {
           
           <div className="px-4 py-2 ">
             <label htmlFor="service" className='block text-lg font-semibold mb-3'>Whose Services Do you Need:</label>
-            <select name="" id="" className=' py-2 px-4' onChange={handleChange}>
+            <select name="service" id="service" className=' py-2 px-4' onChange={handleChange}>
               <option value="Services" selected hidden disabled>Services</option>
               <option value="Carpenter">Carpenter</option>
               <option value="Plumber">Plumber</option>
@@ -106,7 +100,7 @@ const Complaint = () => {
   
   
             <button type="submit" className="bg-[#D945FD] px-4 py-2 text-white ml-4  md:w-auto hover:bg-[#a334be] active:bg-[#D945FD] duration-300 "  >
-              {/* {isLoading && <CircularProgress/>} Submit */} Submit
+               Submit
               </button>
         </form>
         )

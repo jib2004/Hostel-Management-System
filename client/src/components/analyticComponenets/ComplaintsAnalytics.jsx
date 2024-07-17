@@ -33,18 +33,23 @@ export default function LinearDeterminate() {
     getComplaints();
   },[])
     const Total = complaint?.length
+    const res =complaint.map(r=>(
+      Number(r.status)
+    ))
+     const resolved = res.reduce((a,b)=>a+b,0)
+     
     
-    const resolved = 96
-    const open = 68
+    const open = Total - resolved
 
-    const percentage = Math.round(96/158 * 100) 
-    const [progress, setProgress] = useState(percentage);
+    const percentage = Math.round(resolved/Total * 100) 
+    
+    
 
   return (
     <div className='bg-[#202020] p-4 mt-4 flex items-center gap-2 rounded-md' >
         <div className='basis-[20%]'>
     <Box sx={{ width: '100%' }}>
-    <BorderLinearProgress variant="determinate" value={progress} sx={{width:"100%", padding:"40px"}} />
+    <BorderLinearProgress variant="determinate" value={percentage} sx={{width:"100%", padding:"40px"}} />
     
     </Box>
     </div>

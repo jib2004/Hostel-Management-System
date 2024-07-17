@@ -80,8 +80,8 @@ studentDashboard.post("/payment",studentVerify,async (req,res)=>{
 
 studentDashboard.post('/complaint/:id',studentVerify, async(req,res)=>{
     const {id} = req.params
-    const {name,hostel,room,complaint,status,studentId} = req.body
-    if(!room || !complaint){
+    const {name,hostel,room,complaint,service,status,date,studentId} = req.body
+    if(!room || !complaint || !service){
         return res.status(400).json({message:"Please Fill All Fields!"})
     }
 
@@ -98,9 +98,11 @@ studentDashboard.post('/complaint/:id',studentVerify, async(req,res)=>{
          const complaintMade = await ComplaintModel.create({
             name:student.name,
             hostel:student.hostelName,
-            room,
+            room, 
             complaint, 
+            service,
             status,
+            date,
             studentId: student._id
          })
          student.isComplained = true
@@ -138,21 +140,25 @@ studentDashboard.get('/complaint/:id',studentVerify,async (req,res)=>{
     }
 })
 
-studentDashboard.put('/studentComplaint/:id',studentVerify,async (req,res)=>{
-    const {id} = req.params
-    
-    try{
-        const complaintMade = await ComplaintModel.findOneAndDelete({studentId:id})
-       
-        const student = await Student.findByIdAndUpdate(id)
-        student.isComplained = false
-        await student.save()
-        await complaintMade.save()
-        res.status(200).json(student)
-    }catch(error){
-        res.status(500).json({message: error})
+studentDashboard.delete('/studentComplaint/:id', studentVerify, async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const student = await Student.findByIdAndUpdate(id, { isComplained: false });
+  
+      if (!student) {
+        // Handle case where student is not found:
+        return res.status(404).json({ message: 'Student not found' });
+      }
+  
+      await ComplaintModel.findOneAndDelete({ studentId: id });
+  
+      res.status(200).json(student);
+    } catch (error) {
+      console.error('Error deleting complaint:', error); // Log specific error
+      res.status(500).json({ message: 'Internal server error' }); // Generic error for client
     }
-})
+  });
 
 studentDashboard.put('/complaint/:id',studentVerify,async (req,res)=>{
     const {id} = req.params

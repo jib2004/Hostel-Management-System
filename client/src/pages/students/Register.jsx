@@ -15,7 +15,7 @@ const Register = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {isLoading,error} = useSelector((state) => state.user)
+  const {isLoading} = useSelector((state) => state.user)
 
   
 
@@ -37,13 +37,21 @@ const Register = () => {
     const reader = new FileReader();
     reader.onload = function(event) {
       setSelectedImage(event.target.result);
+     
       
     };
     reader.readAsDataURL(file);
 
-    setFormData({...formData,profilePicture:selectedImage})
+
+
+     
 
   };
+
+ 
+  
+
+  
   
 
   const handleInput = (e) =>{
@@ -56,27 +64,25 @@ const Register = () => {
       dispatch(isSignInStart())
       
       try{
-
+        
     const response = await axios.post("http://localhost:5000/api/auth/student", formData)
-
     const data = response
     dispatch(isSignInSuccess(data))
-
-    toast.success("Login Successful")
-
+    toast.success("Register Successful")
     navigate("/login")
-
       }
       catch(e){
-        dispatch(isSignInFailure(e.message))
-        toast.error(error)
+        dispatch(isSignInFailure(e.response.data.message))
+        toast.error(e.response.data.message)
       }
 
   }
 
 
 
-  useEffect(()=>{},[selectedImage])
+  useEffect(()=>{
+    setFormData({...formData,profilePicture:selectedImage})
+  },[selectedImage])
 
 
     

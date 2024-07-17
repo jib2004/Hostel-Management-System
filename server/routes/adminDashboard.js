@@ -39,6 +39,15 @@ adminDashboard.get("/complaint",cookieAuth, async(req,res)=>{
     }
 })
 
+adminDashboard.get('/checkout',cookieAuth,async(req,res)=>{
+    try{
+        const checkout = await CheckOutModel.find()
+        res.status(200).json(checkout)
+    }catch(e){
+        res.status(500).json({message:"Internal Server Error", errorMessage:e})
+    }
+})
+
 
 adminDashboard.get("/students",cookieAuth,async (req,res)=>{
     try {
@@ -220,6 +229,38 @@ adminDashboard.get('/hostels',cookieAuth,async(req,res)=>{
     } catch (error) {
         res.status(500).json({title:"Internal Server Error",message:error })
     }
+})
+
+adminDashboard.put('/complaint/:id',cookieAuth,async(req,res)=>{
+    const {id} = req.params
+
+    try {
+        const complain = await ComplaintModel.findByIdAndUpdate(id,{status:true})
+        res.status(200).json(complain)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+adminDashboard.delete('/complaint/:id',cookieAuth,async (req,res)=>{
+    const { id } = req.params;
+  
+    try {
+      const student = await Student.findByIdAndUpdate(id, { isComplained: false });
+  
+      if (!student) {
+        // Handle case where student is not found:
+        return res.status(404).json({ message: 'Student not found' });
+      }
+  
+      await ComplaintModel.findOneAndDelete({ studentId: id });
+  
+      res.status(200).json(student);
+    } catch (error) {
+      console.error('Error deleting complaint:', error); // Log specific error
+      res.status(500).json({ message: 'Internal server error' }); // Generic error for client
+    }
+
 })
 
 export default adminDashboard

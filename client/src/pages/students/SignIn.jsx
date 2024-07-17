@@ -38,9 +38,8 @@ const SignIn = () => {
        navigate("/student/dashboard")
       }
       catch(e){
-        dispatch(isSignInFailure(e.message))
-        console.log(error)
-        toast.error(error)
+        dispatch(isSignInFailure(e.response.data.message))
+        toast.error(e.response.data.message)
       }
 
   } 
@@ -90,6 +89,10 @@ const SignIn = () => {
 
       <div>
         <span className='text-[#B0B0B0]'>Have you never stayed with us ?</span> <Link to={"/student/register"} className='underline text-[#00868D]'>Sign Up</Link>
+      </div>
+
+      <div>
+        <Link to={'/student/api/forgot-password'} className='underline text-[#00868D]'>Forgot Password ?</Link>
       </div>
       </form>
 

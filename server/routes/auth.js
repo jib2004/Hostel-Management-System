@@ -26,9 +26,27 @@ studentRoute.post("/student",async (req,res)=>{
     } = req.body
 
     if(!name || !email || !password || !emergencyContactName || !phoneNumber || !emergencyPhoneNumber || !address || !gender ){
-       return res.status(400).json("Kindly Fill The Required Field")
+       return res.status(400).json({message:"Kindly Fill The Required Field"})
         
     }
+
+    if(email){
+        const emailExist = await Student.findOne({email})
+        if(emailExist){
+        return res.status(400).json({message:"Email Already exists"})
+        }
+    }
+
+    if(phoneNumber){
+        const phoneNumberExist = await Student.findOne({phoneNumber})
+        if(phoneNumberExist){
+        return res.status(400).json({message:"Phone Number Already exists"})
+        }
+    } 
+
+    
+
+
 
     const hashedPassword = bcryptjs.hashSync(password,10)
     const newStudent = new Student({
@@ -53,7 +71,7 @@ studentRoute.post("/student",async (req,res)=>{
 
     try{
     await newStudent.save()
-     res.json("Sign-up Successful")
+     res.json({message:"Sign-up Successful"})
 
     }catch(e){
         console.log(e)
@@ -76,13 +94,13 @@ studentRoute.post("/login", async(req,res)=>{
         const studentEmail = await Student.findOne({email})
 
         if(!studentEmail){
-            return res.status(404).json("User does not exist")
+            return res.status(404).json({message:"User does not exist"})
         }
 
         const verifyPassword = bcryptjs.compareSync(password,studentEmail.password)
 
         if(!verifyPassword){
-            res.status(400).json("Incorrect Password")
+            res.status(400).json({message:"Incorrect Password"})
         }
 
         const token = jwt.sign({"id": studentEmail._id}, process.env.JWT_SECRET_KEY,{expiresIn:"1d"}) // payload, jwt_key, time it expires {expiresIn: 5m}
@@ -92,7 +110,7 @@ studentRoute.post("/login", async(req,res)=>{
         }).json(studentEmail._doc)
         
     } catch (error) { 
-        console.log(error)
+        console.log(error) 
     }
 })
 

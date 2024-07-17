@@ -24,8 +24,8 @@ const AddDefaulter = ({close,sendData}) => {
     const handleSubmit = async(e) =>{
         e.preventDefault()
         try {
-            const response = await axios.post(`http://localhost:5000/admin/defaulter/${students._id}`, defaulter)
-            const data = response.data
+             await axios.post(`http://localhost:5000/admin/defaulter/${students._id}`, defaulter)
+            
             setCloseDefaulterForm(!closeDefaulterForm)
         sendData(!closeDefaulterForm)
             

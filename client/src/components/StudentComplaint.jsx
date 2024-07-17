@@ -4,13 +4,11 @@ import { useSelector,useDispatch } from "react-redux"
 import { FaXmark } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { isSignInSuccess } from "../redux/userSlice/userSlice";
-import Complaint from "./student/sidebarContent/Complaint";
+
 
 
 const StudentComplaint = () => {
     const {currentUser} = useSelector(state => state.user)
-    const dispatch = useDispatch()
     const [complaints, setComplaints] = useState({})
     const navigate = useNavigate()
 
@@ -27,12 +25,8 @@ const StudentComplaint = () => {
 
     const handleAgree =async () =>{
         
-        const response = await axios.put(`http://localhost:5000/student/studentComplaint/${currentUser._id}`)
+        const response = await axios.delete(`http://localhost:5000/student/studentComplaint/${currentUser._id}`)
         const data = response.data
-        
-       
-        
-        
     }
    
 

@@ -13,6 +13,7 @@ const DefaultersList = () => {
   const {defaulter} = useSelector((state)=> state.defaulter)
   const [studentNames, setStudentNames] = useState([])
   const [options, setOptions] = useState([]); 
+  const [search, setSearch] = useState('');
   
   useEffect(()=>{
       const fetchStudents= async () =>{
@@ -21,7 +22,7 @@ const DefaultersList = () => {
               setStudentNames(response.data)
               dispatch(getDefaulters(response.data))
               setOptions(response.data.map(studentN => studentN.name))
-              console.log(response.data)
+              // console.log(response.data)
               
           } catch (error) {
               console.log(error)
@@ -37,14 +38,14 @@ const DefaultersList = () => {
 
 
   return (
-    <div className="text-white basis-1/2 bg-[#202020] p-4 h-[full]">{
-      defaulter === null ? (
+    <div className="text-white basis-1/2 bg-[#202020] p-4 h-[400px]">{
+      studentNames === null ? (
           <div className=" w-full p-2 bg-[#111111] ">
               No Students Currently...
           </div>
       ):(
           <div className="text-white basis-1/2 bg-[#202020] overflow-hidden relative p-4 h-full ">
-              <h1>Students</h1>
+              <h1>Defaulters </h1>
           
               <div className=" flex gap-3 mt-3 mb-5">
               
@@ -64,7 +65,11 @@ const DefaultersList = () => {
       options={options}
       renderInput={(params) => (
       <div ref={params.InputProps.ref}>
-      <input type="text" {...params.inputProps} 
+      <input 
+      type="text" 
+      {...params.inputProps}
+      value={search}
+      onChange={(e)=>setSearch(e.target.value)} 
           />
         </div>
       )}
@@ -79,9 +84,11 @@ const DefaultersList = () => {
       
 
               {studentNames && studentNames.length ?(
-                  <ul className="flex flex-col gap-4 overflow-auto mt-3 h-[80%]">
+                  <ul className="flex flex-col gap-4 h-[250px] overflow-auto mt-3 ">
 
-                  {studentNames.map((student)=>(
+                  {studentNames.filter((item)=>(
+                    item.name.toLowerCase().includes(search.toLowerCase())
+                  )).map((student)=>(
                           <li key={student._id} className="flex items-center justify-between gap-4 bg-[#111111] text-[#D9D9D9] py-4 px-5 rounded-2xl">
                               <div>
                               <img   src={student.profilePicture} alt="" className=" size-14 mr-4 rounded-full inline-block object-cover" /> 
