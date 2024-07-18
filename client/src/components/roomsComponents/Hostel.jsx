@@ -1,9 +1,10 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios'
+import AddHOstel from './AddHOstel'
 
 const Hostel = () => {
   const [hostel,setHostel] = useState([])
-  const [student,setStudent] = useState([])
+  const [diplayForm,setDisplayForm] = useState(false)
 
   useEffect(()=>{
     const fetchHostel =async ()=>{
@@ -13,8 +14,13 @@ const Hostel = () => {
 
     fetchHostel()
   },[])
+
+  const handleMenu = ()=>{
+    setDisplayForm(!diplayForm)
+  }
   return (
-    <div className='text-white basis-[80%]'>
+    <div className='text-white ml-[260px] relative'>
+      {diplayForm && <AddHOstel close={handleMenu} />}
       <div className=''>
         <input type="search" name="" id=""  placeholder='search...' className='px-2 py-4 w-[400px] bg-[#141414]'/>
       </div>
@@ -23,17 +29,17 @@ const Hostel = () => {
           Total Hostel: {hostel?.length}    
               </div>
 
-        <button className='bg-[#00868D] px-3 hover:bg-[#0d5d61] active:bg-[#00868D] duration-300'>
+        <button onClick={handleMenu} className='bg-[#00868D] px-3 hover:bg-[#0d5d61] active:bg-[#00868D] duration-300'>
           + Add Hostel
         </button>
       </div>
 
-      <div>
+      <div className='flex flex-col gap-4 mt-2 '>
         {
           hostel?.map(hostels=>(
-            <div key={hostels._id}>
+            <div className='bg-[#202020] px-4 py-2 rounded-md' key={hostels._id}>
               <div>
-              <h3>{hostels.name}</h3>
+              <h3 className=' text-2xl font-semibold'>{hostels.name}</h3>
               <span>Plan: {hostels.plan}</span>
               </div>
 
@@ -42,16 +48,13 @@ const Hostel = () => {
                   <div>
                     <ul>
                       <li>
-                        <span>Total Rooms</span>
-                        <h3>{hostels.capacity * hostels.numOfFloors * hostels.roomsPerFloor}</h3>
+                        <span>Total Rooms: {hostels.capacity * hostels.numOfFloors * hostels.roomsPerFloor}</span>
                         </li>
                       <li>
-                      <span>Occupied</span>
-                      <h3>52</h3>
+                      <span>Occupied: {hostels.selectedSpace}</span>
                       </li>
                       <li>
-                      <span>Floors</span>
-                      <h3>{ hostels.numOfFloors }</h3>
+                      <span>Floors: { hostels.numOfFloors }</span>
                       </li>
                     </ul>
                   </div>

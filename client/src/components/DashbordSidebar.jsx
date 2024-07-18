@@ -1,9 +1,7 @@
-import React from 'react'
 import { Link , useLocation} from 'react-router-dom'
 import { FiBarChart2 } from "react-icons/fi";
 import { PiStudent } from "react-icons/pi";
 import { FaComment,FaRegUser } from "react-icons/fa";
-import { AiOutlineStock } from "react-icons/ai";
 import { GiHotMeal } from "react-icons/gi";
 
 const DashbordSidebar = () => {

@@ -3,12 +3,11 @@ import { FiBarChart2 } from "react-icons/fi";
 import { PiStudent } from "react-icons/pi";
 import { FaComment,FaRegUser } from "react-icons/fa";
 import { AiOutlineStock } from "react-icons/ai";
-import { GiHotMeal } from "react-icons/gi";
 
 const RoomSideBar = () => {
   const path = useLocation().pathname
   return (
-    <div className='bg-[#202020] text-[#B0B0B0] text-lg h-full basis-[15%] rounded-xl'>
+    <div className='bg-[#202020] text-[#B0B0B0] text-lg  w-[250px] h-[450px] rounded-xl fixed '>
     <ul>
         <li className={`py-3 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={'/admin/rooms'}><span className={` inline-block ${path === "/admin/rooms" && 'text-[#00FFF5]' }`}><FiBarChart2 /></span> Occupancy </Link>

@@ -10,9 +10,9 @@ import { useLocation } from 'react-router-dom'
 const Rooms = () => {
   const path = useLocation().pathname
   return (
-    <div className='w-screen h-screen  bg-black'>
+    <div className='bg-black'>
         <AdminNav />
-        <div className="flex mt-2 gap-4 h-[85%]  py-2 px-4 ">
+        <div className="mt-2 gap-4 py-2 px-4 ">
         <RoomSideBar />
         {path === "/admin/rooms" && <Occupancy />}
         {path === "/admin/rooms/hostel" && <Hostel />}
