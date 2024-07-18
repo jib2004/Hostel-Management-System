@@ -37,6 +37,7 @@ import StudentInfo from './components/dashboardStudent/studentLD/StudentInfo.jsx
 import DefaulterInfo from './components/dashboardStudent/studentLD/DefaulterInfo.jsx';
 import Forgot from './pages/students/Forgot.jsx';
 import AdminComplaint from './components/adminDashboardComponents/AdminComplaint.jsx';
+import UsersPage from './components/adminDashboardComponents/Users/UsersPage.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
   {
     path:"/admin/dashboard/complaint",
     element:<AdminComplaint />
+  },
+  {
+    path:"/admin/dashboard/users",
+    element:<UsersPage />
   },
   {
     path:"/admin/dashboard/student/:id",

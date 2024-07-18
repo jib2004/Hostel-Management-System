@@ -35,7 +35,8 @@ const AddDefaulter = ({close,sendData}) => {
         }
     }
   return (
-    <div className="absolute w-[748px] h-[819px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#2E2E2E] shadow-md p-4">
+    <>
+    <div className="absolute  w-[748px] h-[450px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#2E2E2E] shadow-xl p-4">
         <h1 className="flex text-2xl items-center justify-between py-4 px-2">AddDefaulter <MdClose className=" cursor-pointer" onClick={handleClose}/></h1> 
         <form onSubmit={handleSubmit}>
         <div className='mb-3 '>
@@ -89,6 +90,7 @@ const AddDefaulter = ({close,sendData}) => {
             </div>
         </form>
         </div>
+        </>
   )
 }
 
