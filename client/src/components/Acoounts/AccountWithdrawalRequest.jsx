@@ -3,6 +3,7 @@ import { useState,useEffect } from "react"
 
 const AccountWithdrawalRequest = () => {
     const [requests,setRequests] = useState([])
+    const [click,setClick] = useState(0)
     useEffect(()=>{
         const getRequests = async() =>{
             try {
@@ -13,10 +14,9 @@ const AccountWithdrawalRequest = () => {
             }
         }
         getRequests()
-    },[])
+    },[click])
 
     const handleApproval = async(...id) =>{
-        console.log(id)
         try {
             await axios.put(`http://localhost:5000/admin/deposit/${id[0]}`,{
                 amount:-id[2]
@@ -25,7 +25,10 @@ const AccountWithdrawalRequest = () => {
         } catch (error) {
             console.log(error)
         }
+        setClick(click + 1)
     }
+
+    
 
   return (
     <div className='text-white ml-[260px] w-[75%] px-4'>
@@ -47,7 +50,7 @@ const AccountWithdrawalRequest = () => {
                             <span>Amount : </span><span>&#8358; {request.amountToWithdraw.toLocaleString()}</span>
                         </div>
                         <div>
-                            <button onClick={()=>{handleApproval(request.studentId,request._id,request.amountToWithdraw)}} className={'px-4 py-2 bg-red-500 active:bg-red-400 hover:bg-red-700 duration-150 rounded'}>Approve</button>
+                            <button onClick={()=>{handleApproval(request.studentId,request._id,request.amountToWithdraw) }} className={'px-4 py-2 bg-red-500 active:bg-red-400 hover:bg-red-700 duration-150 rounded'}>Approve</button>
                         </div>
                     </li>
                 ))}

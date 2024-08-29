@@ -297,9 +297,10 @@ studentDashboard.post('/withdraw/:id',studentVerify,async(req,res)=>{
         return res.status(400).json('No amount deposited')
     }
     const withdrawMade = await withdrawModel.find({studentId:student._id})
-    if(withdrawMade[0].isSent){
+    if(withdrawMade[0]?.isSent){
             const updateWithdrawal = await withdrawModel.findByIdAndUpdate(withdrawMade[0]._id,{
                 amountToWithdraw,
+                accountNumber,
                 isSent:false,
             })
             return res.status(200).json(updateWithdrawal)

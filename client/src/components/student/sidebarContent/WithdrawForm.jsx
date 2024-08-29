@@ -20,9 +20,14 @@ const WithdrawForm = ({openForm,formDisplay}) => {
             toast.success('Request Successful')
             formDisplay()
         } catch (error) {
-            toast.error("Request Unsuccessful")
+            if(error.response.data.errorResponse){
+                toast.error('Wait for withdrawal to be approved before making another one')
+            }else{
+            toast.error(error.response.data)
+        }
+            console.log()
             formDisplay()
-            console.log(error)
+            
         }
     }
 
