@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import axios from 'axios';
 import {toast,Toaster} from 'sonner'
 
-const AddHOstel = ({close}) => {
+const AddHOstel = ({close,display}) => {
     const [formData, setFormData] = useState({})
 
     const handleInput = (e) =>{
@@ -25,15 +25,16 @@ const AddHOstel = ({close}) => {
             
             toast.error(error.response.data.message)
         }
-
       }
+      
+
   return (
-    <form className=' absolute w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' onSubmit={handleSubmit}>
+    <form className={` ${display&&'  -translate-y-1/2'} transition-transform absolute w-1/2 p-4 bg-[hsl(0,0%,18%)] h-[570px] rounded-lg mx-auto shadow-2xl top-1/2 left-1/2  -translate-x-1/2  `} onSubmit={handleSubmit}>
     <div className='flex justify-between items-center'>
-      <h1 className='text-3xl text-white font-semibold mb-4'>ADD HOSTEL</h1>
+      <h1 className='text-2xl text-white font-semibold mb-1'>ADD HOSTEL</h1>
         <IoMdClose className='text-2xl cursor-pointer' onClick={close} />
       </div>
-      <div className='mb-3 '>
+      <div className='mb-1 '>
       <TextField
       onChange={handleInput}
        
@@ -46,7 +47,7 @@ const AddHOstel = ({close}) => {
       
       </div>
 
-      <div className='mb-3 '>
+      <div className='mb-1 '>
       <TextField
       onChange={handleInput}
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}} 
@@ -58,7 +59,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3 '>
+      <div className='mb-1 '>
       <TextField
       onChange={handleInput}
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -70,7 +71,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3  gap-2'>
+      <div className='mb-1  gap-2'>
       <TextField
       onChange={handleInput} 
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -82,7 +83,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3  gap-2'>
+      <div className='mb-1  gap-2'>
       <TextField
       onChange={handleInput} 
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -94,7 +95,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3  gap-2'>
+      <div className='mb-1  gap-2'>
       <TextField
       onChange={handleInput} 
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -106,7 +107,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3  gap-2'>
+      <div className='mb-1  gap-2'>
       <TextField
       onChange={handleInput} 
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -118,7 +119,7 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='mb-3  gap-2'>
+      <div className='mb-1  gap-2'>
       <TextField
       onChange={handleInput} 
       sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
@@ -129,8 +130,8 @@ const AddHOstel = ({close}) => {
       />
       </div>
 
-      <div className='flex justify-end my-5'>
-      <Button  className='bg-[#00868D]' sx={{backgroundColor:"#00868D", color:"white"}} type='submit' >
+      <div className='flex justify-end my-2'>
+      <Button  className='bg-[#00868D] h-[28px]' sx={{backgroundColor:"#00868D", color:"white"}} type='submit' >
    
       Register 
     </Button>

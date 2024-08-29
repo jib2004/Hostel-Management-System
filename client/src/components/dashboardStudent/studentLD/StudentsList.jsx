@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useEffect,useState } from "react"
-import { useSelector } from "react-redux"
 import Autocomplete from '@mui/material/Autocomplete';
 import { FaEye } from "react-icons/fa";
 import { MdFilterList } from "react-icons/md";
@@ -8,7 +7,6 @@ import {Link} from 'react-router-dom'
 
 
 const StudentsList = () => {
-    const {students} = useSelector((state)=> state.student_info)
     const [studentNames, setStudentNames] = useState([])
     const [options, setOptions] = useState([]); 
     const [searchStudent, setSearchStudent] = useState('')
@@ -19,8 +17,6 @@ const StudentsList = () => {
                 const response = await axios.get("http://localhost:5000/admin/students")
                 setStudentNames(response.data)
                 setOptions(response.data.map(studentN => studentN.name))
-                
-                
             } catch (error) {
                 console.log(error)
             }
@@ -28,19 +24,18 @@ const StudentsList = () => {
         fetchStudents()
     },[])
 
+
   return (
     <div className="text-white basis-1/2 bg-[#202020] p-4  h-[400px]">
       {
-        students === null ? (
+        studentNames === null ? (
             <div className=" w-full p-2 bg-[#111111] ">
                 No Students Currently...
             </div>
         ):(
             <div className="text-white basis-1/2 bg-[#202020] overflow-hidden relative p-4 h-full ">
                 <h1>Students</h1>
-            
                 <div className=" flex gap-3 mt-3 mb-5">
-                
         <Autocomplete
         sx={{
           display: 'inline-block',
@@ -67,10 +62,8 @@ const StudentsList = () => {
           </div>
         )}
       />
-
         <button  className="flex items-center py-[10px] px-[12px] bg-[#3E3E3E] hover:bg-[#515151] duration-300 font-normal text-[16px]"><MdFilterList/> Filter </button>
         </div>
-
       {studentNames && studentNames.length ?(
                     <ul className="flex flex-col h-[250px] gap-2 overflow-auto mt-3 ">
                     {studentNames.filter((item)=>(
@@ -86,7 +79,6 @@ const StudentsList = () => {
                     ))} 
                     </ul>
                 ) :
-                
                 ""}
             </div>
         )

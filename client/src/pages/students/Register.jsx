@@ -16,9 +16,6 @@ const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {isLoading} = useSelector((state) => state.user)
-
-  
-
   const handleImageChange = (e) =>{
     const file = e.target.files[0];
     // Check for valid image file
@@ -41,18 +38,7 @@ const Register = () => {
       
     };
     reader.readAsDataURL(file);
-
-
-
-     
-
   };
-
- 
-  
-
-  
-  
 
   const handleInput = (e) =>{
     
@@ -62,9 +48,7 @@ const Register = () => {
   const handleSubmit = async (e) =>{
       e.preventDefault()
       dispatch(isSignInStart())
-      
       try{
-        
     const response = await axios.post("http://localhost:5000/api/auth/student", formData)
     const data = response
     dispatch(isSignInSuccess(data))
@@ -75,18 +59,12 @@ const Register = () => {
         dispatch(isSignInFailure(e.response.data.message))
         toast.error(e.response.data.message)
       }
-
   }
-
-
 
   useEffect(()=>{
     setFormData({...formData,profilePicture:selectedImage})
   },[selectedImage])
 
-
-    
-  
   return (
     <div className=' min-h-screen  py-16 bg-[hsl(0,0%,49%)]'>
       <form className='w-[95vw] md:w-1/2 p-4 bg-[hsl(0,0%,18%)] rounded-lg mx-auto shadow-2xl' onSubmit={handleSubmit}>

@@ -19,6 +19,8 @@ const StudentSidebar = ({display,nodisplay}) => {
         <li className=" flex justify-end  py-2 px-4 text-[20px] md:hidden cursor-pointer" ><AiOutlineClose onClick={handleClick}/></li>
         <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/dashboard' &&  "text-[#707DA2]"}`}><Link to={"/student/dashboard"} onClick={handleClick}>profile</Link> </li>
         <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/room' &&  "text-[#707DA2]"}`}><Link to={'/student/room'} onClick={handleClick}>Rooms</Link></li>
+        <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/pick' &&  "text-[#707DA2]"}`}><Link to={'/student/pick'} onClick={handleClick}>Pick A Room</Link></li>
+        <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/deposit' &&  "text-[#707DA2]"}`}><Link to={'/student/deposit'} onClick={handleClick}>Deposit And Pay</Link></li>
         <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/complaint' &&  "text-[#707DA2]"}`}><Link to={'/student/complaint'} onClick={handleClick}>Complaint</Link> </li>
         <li className={`py-2 px-4 text-[20px] font-medium md:text-[40px] ${path  === '/student/check-out' &&  "text-[#707DA2]"}`}><Link to={'/student/check-out'} onClick={handleClick}>Check-Out</Link> </li>
     </ul>

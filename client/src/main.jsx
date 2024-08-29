@@ -38,6 +38,7 @@ import DefaulterInfo from './components/dashboardStudent/studentLD/DefaulterInfo
 import Forgot from './pages/students/Forgot.jsx';
 import AdminComplaint from './components/adminDashboardComponents/AdminComplaint.jsx';
 import UsersPage from './components/adminDashboardComponents/Users/UsersPage.jsx';
+import TransactionHistory from './components/student/sidebarContent/TransactionHistory.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -145,9 +146,21 @@ const router = createBrowserRouter([
     element:<Accounts />
   }, 
   {
+    path:"/admin/accounts/:section",
+    element:<Accounts />
+  },
+  {
     path:"/admin/maintenance",
     element:<Maintenance />
   }, 
+  {
+    path:'/student/transaction',
+    element:<TransactionHistory />
+  },
+  {
+    path:'/student/transaction/:section',
+    element:<TransactionHistory />
+  },
   {
     path:"*",
     element:<ErrorPage />

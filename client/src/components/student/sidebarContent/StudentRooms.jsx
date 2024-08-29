@@ -29,8 +29,6 @@ const handlePlan = (e) =>{
   setPlan(hostels.filter(hostel =>(
     hostel.plan === value
   ) ))
-
-
 }
 
 const handleAmount =async (id)=>{
@@ -41,7 +39,7 @@ const handleAmount =async (id)=>{
 }
 
   return (
-    <div className='overflow-x-hidden'>
+    <div className='overflow-x-hidden '>
       <div className={`${currentUser.isPaid? 'hidden':'block' }`}>
       <h1 className=' text-xl font-semibold px-4 py-2 '>Student Rooms (Kindly select a room of your choice)</h1> 
     <p className=' text-[13px]  font-semibold px-4 py-2 '>

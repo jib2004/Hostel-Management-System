@@ -12,7 +12,7 @@ const Reciept = () => {
         const fetchReceipt = async ()=>{
             const response = await axios.get(`http://localhost:5000/student/payment/${currentUser._id}`)
             setReciept(response.data)
-            console.log(response.data)
+            
         }
 
         fetchReceipt()

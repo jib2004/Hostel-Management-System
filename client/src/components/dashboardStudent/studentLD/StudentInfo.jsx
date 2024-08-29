@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react'
-import { useParams,Link,useNavigate } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import { FaChevronLeft } from "react-icons/fa";
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -14,13 +14,13 @@ import BlockStudentDialog from '../../dialogs/BlockStudentDialog.jsx';
 const StudentInfo = () => {
     const {id} = useParams()
     const dispatch = useDispatch() 
-    const navigate = useNavigate()
+
     const [studentInfo,setStudentInfo] = useState(null)
     const [showDefaulterForm,setShowDefaulterForm] = useState(false)
 
     
 
-    const showDefaulter = (data) =>{
+    const showDefaulter = () =>{
         setShowDefaulterForm(!showDefaulterForm)
     }
 
@@ -30,12 +30,10 @@ const StudentInfo = () => {
             const response = await axios.get(`http://localhost:5000/admin/student/${id}`)
             setStudentInfo(response.data)
             dispatch(getStudent(response.data))
-
         }catch(e){
             console.log(e)
         }
         }
-
         getStudentInfo()
     },[])
 

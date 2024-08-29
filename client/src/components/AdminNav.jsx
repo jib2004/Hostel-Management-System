@@ -23,7 +23,7 @@ const AdminNav = () => {
         <li className={path === "/admin/attendance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/attendance'}><span>Attendance</span> </Link>
         </li>
-        <li className={path === "/admin/accounts" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
+        <li className={path.includes("/admin/accounts") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/accounts'}><span>Accounts</span> </Link>
         </li>
         <li className={path === "/admin/maintenance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>

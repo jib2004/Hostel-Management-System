@@ -80,10 +80,19 @@ isComplained:{
 isCheckOut:{
     type:Boolean,
     default:false
+},
+room:{
+    type:String,
+    default:""
+},
+amountDeposited:{
+    type:Array,
+    default:[]  
+},
+isEvicted:{
+    type:Boolean,
+    default:false
 }
-   
-
-
 },
 {timeStamp:true}
 

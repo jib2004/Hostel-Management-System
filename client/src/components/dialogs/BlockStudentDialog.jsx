@@ -24,8 +24,7 @@ const BlockStudentDialog = () => {
     setBlock(!block)
     try {
       setBlock(!block)
-        const respnonse = await axios.put(`http://localhost:5000/admin/student/block/${students._id}`)
-        
+      await axios.put(`http://localhost:5000/admin/student/block/${students._id}`)
         setOpen(false);
     } catch (error) {
         console.log(error)
@@ -37,7 +36,7 @@ useEffect(()=>{},[block])
     <div>
       <div>
         <Button variant="contained" color='primary' onClick={handleClickOpen}>
-        {students.isBlocked?"Unblock Student":"Block Student"}
+        {students?.isBlocked?"Unblock Student":"Block Student"}
       </Button>
       <Dialog
         open={open}

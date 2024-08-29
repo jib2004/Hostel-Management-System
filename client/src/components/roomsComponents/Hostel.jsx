@@ -19,8 +19,9 @@ const Hostel = () => {
     setDisplayForm(!diplayForm)
   }
   return (
-    <div className='text-white ml-[260px] relative'>
-      {diplayForm && <AddHOstel close={handleMenu} />}
+    <div className='text-white ml-[260px] relative h-[570px] overflow-x-hidden overflow-y-auto'>
+      {diplayForm && <AddHOstel close={handleMenu} display={diplayForm} />}
+      <div className=''>
       <div className=''>
         <input type="search" name="" id=""  placeholder='search...' className='px-2 py-4 w-[400px] bg-[#141414]'/>
       </div>
@@ -33,13 +34,16 @@ const Hostel = () => {
           + Add Hostel
         </button>
       </div>
+      </div>
 
-      <div className='flex flex-col gap-4 mt-2 '>
+      <div className='flex flex-col gap-4 mt-2  px-4'>
         {
           hostel?.map(hostels=>(
             <div className='bg-[#202020] px-4 py-2 rounded-md' key={hostels._id}>
               <div>
+              
               <h3 className=' text-2xl font-semibold'>{hostels.name}</h3>
+              <p className='text-[#a7a7a7] text-sm'> {hostels.description}</p>
               <span>Plan: {hostels.plan}</span>
               </div>
 
@@ -47,9 +51,11 @@ const Hostel = () => {
                 <div>
                   <div>
                     <ul>
+                      
                       <li>
                         <span>Total Rooms: {hostels.capacity * hostels.numOfFloors * hostels.roomsPerFloor}</span>
                         </li>
+                        
                       <li>
                       <span>Occupied: {hostels.selectedSpace}</span>
                       </li>

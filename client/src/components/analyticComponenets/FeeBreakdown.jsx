@@ -47,8 +47,6 @@ export default function PieChartWithCenterLabel() {
     const getPayment = async () =>{
       const response = await axios.get('http://localhost:5000/admin/paymentMade')
       setPayment(response.data)
-      
-
     }
 
     getHostel()

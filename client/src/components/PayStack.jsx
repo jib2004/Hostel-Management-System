@@ -41,15 +41,9 @@ const PayStack = () => {
            const res = await axios.get(`http://localhost:5000/student/${currentUser._id}`)
            dispatch(isSignInSuccess(res.data))
         }
-
-       
-
       } catch (error) {
-      
         toast.error(error.response.data.message);
       }
-        
-        
       };
   
       // you can call this function anything

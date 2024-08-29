@@ -5,6 +5,7 @@ import { paymentModel } from "../model/paymentModel.js";
 import  Student  from '../model/studentModel.js'
 import ComplaintModel from "../model/complaintModel.js";
 import CheckOutModel from "../model/checkOutModel.js";
+import withdrawModel from "../model/withdrawalRequestMKodel.js";
 
 const studentDashboard = express.Router()
 
@@ -34,13 +35,12 @@ studentDashboard.get("/hostel/:id",studentVerify,async(req,res)=>{
 })
 
 studentDashboard.post("/payment",studentVerify,async (req,res)=>{
-    const {reference,name,email,hostel,plan,amountPaid,date,studentId} = req.body
+    const {reference,name,email,hostel,amountPaid,date} = req.body
     
 
     try {
         const emailExist = await paymentModel.findOne({email})
-        if(
-            emailExist){
+        if(emailExist){
             return res.status(400).json({message:'You Have Already Registered!'})
           }
         
@@ -76,6 +76,10 @@ studentDashboard.post("/payment",studentVerify,async (req,res)=>{
     } catch (error) {
         res.status(500).json({message: error})
     }
+})
+
+studentDashboard.put('/room/:id',studentVerify,async(req,res)=>{
+    const {id} = req.params
 })
 
 studentDashboard.post('/complaint/:id',studentVerify, async(req,res)=>{
@@ -252,6 +256,68 @@ studentDashboard.get('/:id',studentVerify,async (req,res)=>{
         console.log(error)
         res.status(500).json({ message: 'Internal server error' });
     }
+})
+
+studentDashboard.put('/deposit/:id',studentVerify,async(req,res)=>{
+    const {id} = req.params
+    const {amount} = req.body
+    try {
+        const student = await Student.findByIdAndUpdate(id)
+        if(!student.amountDeposited){
+            student.amountDeposited = Array(Number(amount))
+        }else{
+            student.amountDeposited.push(Number(amount))
+        }
+        await student.save()
+        res.status(200).json({
+            message:'Deposited Successfully',
+            updatedValue:student
+        })
+    } catch (error) {
+        res.status(500).json('Internal Server Error')
+    }
+})
+
+studentDashboard.post('/withdraw/:id',studentVerify,async(req,res)=>{
+    const {id} = req.params
+    const {name,email,accountNumber,amountToWithdraw} = req.body
+    if(!name || !email || !accountNumber|| !amountToWithdraw){
+        return res.status(400).json('Kindly fill all fields')
+    }
+    const student = await Student.findById(id)
+    const totalAmountInAccount = student.amountDeposited.reduce((a,c)=> a + c, 0)
+    if(!student){
+        return res.status(404).json('User not found')
+    }
+    if(student.amountDeposited[student.amountDeposited.length - 1] === 0 || amountToWithdraw > totalAmountInAccount){
+        return res.status(400).json('Insufficient Balance')
+    }
+
+    if(student.amountDeposited.length === 0){
+        return res.status(400).json('No amount deposited')
+    }
+    const withdrawMade = await withdrawModel.find({studentId:student._id})
+    if(withdrawMade[0].isSent){
+            const updateWithdrawal = await withdrawModel.findByIdAndUpdate(withdrawMade[0]._id,{
+                amountToWithdraw,
+                isSent:false,
+            })
+            return res.status(200).json(updateWithdrawal)
+    }
+  
+        try {
+            const withdraw = await withdrawModel.create({
+                name,
+                email,
+                amountToWithdraw,
+                accountNumber,
+                studentId:student._id
+            })
+    
+            res.status(201).json(withdraw)
+        } catch (error) {
+            res.status(500).json(error)
+        }
 })
  
 export default studentDashboard

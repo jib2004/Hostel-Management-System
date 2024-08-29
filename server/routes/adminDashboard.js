@@ -7,6 +7,7 @@ import  Hostel  from '../model/hostelModel.js';
 import { paymentModel } from '../model/paymentModel.js';
 import CheckOutModel from '../model/checkOutModel.js';
 import ComplaintModel from '../model/complaintModel.js';
+import withdrawModel from "../model/withdrawalRequestMKodel.js";
 
 
 const adminDashboard = express.Router()
@@ -261,6 +262,46 @@ adminDashboard.delete('/complaint/:id',cookieAuth,async (req,res)=>{
       res.status(500).json({ message: 'Internal server error' }); // Generic error for client
     }
 
+})
+
+adminDashboard.get('/withdrawal-requests',cookieAuth,async(req,res)=>{
+    try {
+        const withdrawalRequest = await withdrawModel.find()
+        res.status(200).json(withdrawalRequest)
+    } catch (error) {
+        res.status(500).json({message:'Internal Server Error'})
+    }
+})
+
+adminDashboard.put('/deposit/:id',cookieAuth,async(req,res)=>{
+    const {id} = req.params
+    const {amount} = req.body
+    try {
+        const student = await Student.findByIdAndUpdate(id)
+        if(!student.amountDeposited){
+            student.amountDeposited = Array(Number(amount))
+        }else{
+            student.amountDeposited.push(Number(amount))
+        }
+        await student.save()
+        res.status(200).json({
+            message:'Deposited Successfully',
+            updatedValue:student
+        })
+    } catch (error) {
+        res.status(500).json('Internal Server Error')
+    }
+})
+
+adminDashboard.put('/approved/:id',cookieAuth,async(req,res)=>{
+    const {id} =  req.params
+    try {
+        const approve = await withdrawModel.findByIdAndUpdate(id,{isSent:true})
+        res.status(200).json(approve);
+       
+    } catch (error) {
+        res.status(500).json('Internal Server Error')
+    }
 })
 
 export default adminDashboard
