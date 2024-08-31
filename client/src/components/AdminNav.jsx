@@ -1,12 +1,23 @@
-import React from 'react'
-import { Link,useLocation } from "react-router-dom";
+
+import { Link,useLocation, useNavigate } from "react-router-dom";
 import { FaCalendar,FaBell,FaUser } from "react-icons/fa";
 import { useSelector } from 'react-redux'
 import { IoLogOut } from "react-icons/io5"
+import axios from "axios";
 
 const AdminNav = () => {
     const path = useLocation().pathname
     const {currentUser} = useSelector((state) => state.user)
+    const navigate = useNavigate()
+
+    const handleLogout= async() =>{
+        try {
+          await axios.get('http://localhost:5000/admin/logout')
+          navigate('/admin/login')
+        } catch (error) {
+          console.log(error)
+        }
+    }
 
   return (
     <nav className='w-full bg-[#202020] items-center text-white py-10 px-8 pb-0 flex justify-between'>
@@ -18,17 +29,17 @@ const AdminNav = () => {
             <Link to={'/admin/dashboard'}><span>Dashboard</span> </Link>
         </li>
         <li className={path.includes("/admin/rooms") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
-            <Link to={'/admin/rooms'}><span>Rooms</span> </Link>
+            <Link to={'/admin/rooms/hostel'}><span>Rooms</span> </Link>
         </li>
-        <li className={path === "/admin/attendance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
+        {/* <li className={path === "/admin/attendance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/attendance'}><span>Attendance</span> </Link>
-        </li>
+        </li> */}
         <li className={path.includes("/admin/accounts") && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/accounts'}><span>Accounts</span> </Link>
         </li>
-        <li className={path === "/admin/maintenance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
+        {/* <li className={path === "/admin/maintenance" && " text-white bg-black border border-b-0 py-4 px-5 border-[#00FFF5] rounded-t-2xl  "}>
             <Link to={'/admin/maintenance'}><span>Maintenance</span> </Link>
-        </li>
+        </li> */}
       </ul>
 
 
@@ -46,7 +57,7 @@ const AdminNav = () => {
 
         <span className='text-lg'>{currentUser.name}</span>
 
-        <li className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title="log out"> 
+        <li onClick={handleLogout} className=' size-10 bg-[#2F2F2F] text-[#00FFF5] flex items-center justify-center rounded-full p-3 cursor-pointer hover:bg-[#5c5b5b] duration-300' title="log out"> 
             <IoLogOut /> 
         </li>
 

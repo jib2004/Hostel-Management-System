@@ -304,4 +304,7 @@ adminDashboard.put('/approved/:id',cookieAuth,async(req,res)=>{
     }
 })
 
+adminDashboard.get('/logout',cookieAuth,async(req,res)=>{
+    res.clearCookie('token').json({message:"Successfully Logged Out"})
+})
 export default adminDashboard

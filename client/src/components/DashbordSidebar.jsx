@@ -21,9 +21,9 @@ const DashbordSidebar = () => {
             <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/dashboard/users" && 'bg-[#2E2E2E] text-white'}`}>
                 <Link to={"/admin/dashboard/users"}><span className={` inline-block ${path === "/admin/dashboard/users" && 'text-[#00FFF5]' }`}><FaRegUser /></span> Users</Link>
             </li>
-            <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/dashboard/meals" && 'bg-[#2E2E2E] text-white'}`}>
+            {/* <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/dashboard/meals" && 'bg-[#2E2E2E] text-white'}`}>
                 <Link to={"/admin/dashboard/meals"}><span className={` inline-block ${path === "/admin/dashboard/meals" && 'text-[#00FFF5]' }`}><GiHotMeal /></span> Meals</Link>
-            </li>
+            </li> */}
         </ul>
     </div>
   )

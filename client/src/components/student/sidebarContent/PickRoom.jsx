@@ -7,6 +7,7 @@ const PickRoom = () => {
   const {currentUser} = useSelector(state=>state.user)
   const [userInfo,setUserInfo] = useState({}) 
   const [hostel,setHostel] = useState([])
+  const [roomNumbers,setRoomNumbers] = useState([])
 
 useEffect(()=>{
    const getUser = async () =>{
@@ -29,17 +30,33 @@ useEffect(()=>{
    
    getUser()
    getHostel()
+   
 },[])
 
 
-const studentHostel = hostel.filter(h => h.name === currentUser.hostelName)
-console.log(studentHostel)
 
- console.log(Math.round(((studentHostel[0]?.roomsPerFloor * studentHostel[0]?.numOfFloors) % 2 )  ))
+const studentHostel = hostel.filter(h => h.name === userInfo.hostelName)
+  // console.log(studentHostel)
+// setRoomNumbers()
+
+// for(let i  = 0; i <= studentHostel[0]?.roomsPerFloor * studentHostel[0]?.numOfFloors ;i++ ){
+//   setRoomNumbers(i)
+// }
+
+//console.log(roomNumbers)
+
+
+//  console.log(Math.round((() % 2 )  ))
 
 
   return (
     <div>
+      <h1>Pick Room</h1>
+      <div>
+        {
+  
+        }
+      </div>
 
     </div>
   )

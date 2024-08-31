@@ -12,6 +12,7 @@ const Hostelinfo = () => {
   useEffect(()=>{
     const getHostel = async() =>{
       const response = await axios.get('http://localhost:5000/admin/hostel')
+      localStorage.clear()
       setHostel(response.data)
     }
 

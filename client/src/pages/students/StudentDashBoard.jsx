@@ -33,7 +33,6 @@ const StudentDashBoard = () => {
       <div className='md:ml-[370px] md:basis-[70%]'>
       {path  === '/student/dashboard' && <Student />}
       {path  === '/student/room' && <StudentRooms />}
-      {path  === '/student/pick' && <PickRoom />}
       {path  === '/student/deposit' && <Deposit />}
       {path  === '/student/complaint' && <Complaint />}
       {path  === '/student/check-out' && <CheckOut />}

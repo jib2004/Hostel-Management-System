@@ -9,21 +9,21 @@ const RoomSideBar = () => {
   return (
     <div className='bg-[#202020] text-[#B0B0B0] text-lg  w-[250px] h-[450px] rounded-xl fixed '>
     <ul>
-        <li className={`py-3 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms" && 'bg-[#2E2E2E] text-white'}`}>
+        {/* <li className={`py-3 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={'/admin/rooms'}><span className={` inline-block ${path === "/admin/rooms" && 'text-[#00FFF5]' }`}><FiBarChart2 /></span> Occupancy </Link>
-        </li>
+        </li> */}
         <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms/hostel" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={"/admin/rooms/hostel"}><span className={` inline-block ${path === "/admin/rooms/hostel" && 'text-[#00FFF5]' }`}><PiStudent /></span> Hostels</Link>
         </li>
         <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms/room" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={"/admin/rooms/room"}><span className={` inline-block ${path === "/admin/rooms/room" && 'text-[#00FFF5]' }`}><FaComment /></span> Rooms</Link>
         </li>
-        <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms/assigned" && 'bg-[#2E2E2E] text-white'}`}>
+        {/* <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms/assigned" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={"/admin/rooms/assigned"}><span className={` inline-block ${path === "/admin/rooms/assigned" && 'text-[#00FFF5]' }`}><AiOutlineStock /></span> Assigned</Link>
         </li>
         <li className={`py-4 px-2 rounded-md text-[#B0B0B0] font-semibold ${path === "/admin/rooms/furniture" && 'bg-[#2E2E2E] text-white'}`}>
             <Link to={"/admin/rooms/furniture"}><span className={` inline-block ${path === "/admin/rooms/furniture" && 'text-[#00FFF5]' }`}><FaRegUser /></span> Furniture</Link>
-        </li>
+        </li> */}
      
     </ul>
 </div>
