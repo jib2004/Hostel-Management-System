@@ -6,10 +6,42 @@ import  Student  from '../model/studentModel.js'
 import ComplaintModel from "../model/complaintModel.js";
 import CheckOutModel from "../model/checkOutModel.js";
 import withdrawModel from "../model/withdrawalRequestMKodel.js";
+import multer from 'multer'
+import path from 'path'
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + path.extname(file.originalname)
+      cb(null, file.fieldname + '_' + uniqueSuffix)
+    }
+  })
+
+  const upload = multer({ storage: storage })
+
 
 const studentDashboard = express.Router()
 
 
+studentDashboard.put('/:id',studentVerify, async(req,res)=>{
+    const {name,email,password,phoneNumber} = req.body
+    const {id} = req.params 
+    try{
+        const student = await Student.findByIdAndUpdate(id,{
+            name,
+            email,
+            password,
+            phoneNumber
+        })
+ 
+        res.status(200).json(student)  
+    }catch{
+        res.status(500).json('Internal Server Error')
+    }
+})
 
 studentDashboard.get("/hostel",studentVerify,async(req,res)=>{
     try {
@@ -320,5 +352,21 @@ studentDashboard.post('/withdraw/:id',studentVerify,async(req,res)=>{
             res.status(500).json(error)
         }
 })
+
+
+studentDashboard.put('/upload-image/:id',studentVerify,upload.single('profile'),async(req,res)=>{
+    const {id} = req.params
+    try {
+        const student = await Student.findByIdAndUpdate(id,{
+            profilePicture : req.file.filename
+        })
+        res.status(200).json(student)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+   
+})
+
+
  
-export default studentDashboard
+export default studentDashboard  

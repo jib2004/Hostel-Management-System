@@ -71,7 +71,7 @@ const StudentsList = () => {
                     )).map((student)=>(
                             <li key={student._id} className="flex items-center justify-between gap-4 bg-[#111111] text-[#D9D9D9] py-4 px-5 rounded-2xl">
                                 <div>
-                                <img   src={student.profilePicture} alt="" className=" size-14 mr-4 rounded-full inline-block" /> 
+                                <img   src={`http://localhost:5000/${student.profilePicture}`} alt="" className=" size-14 mr-4 rounded-full inline-block" /> 
                                 <span >{student.name}</span> 
                                 </div>
                                 <Link to={`/admin/dashboard/student/${student._id}`}><FaEye className=" cursor-pointer text-[25px]"/> </Link> 

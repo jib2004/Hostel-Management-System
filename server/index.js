@@ -19,6 +19,7 @@ app.use(cors({
 app.use(cookieParser())
 dotenv.config()
 connectDB(process.env.MONGODB_URL)
+ app.use(express.static('uploads'))// allows you access this file
 
 
 app.get("/",(req,res)=>{
@@ -32,4 +33,4 @@ app.use("/student/",studentDashboard)
 
 app.listen(5000,()=>{
     console.log('Server is running')
-})
+}) 

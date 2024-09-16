@@ -8,7 +8,6 @@ import Complaint from '../../components/student/sidebarContent/Complaint';
 import CheckOut from '../../components/student/sidebarContent/CheckOut';
 import BlockedStudent from '../../components/student/BlockedStudent';
 import {useSelector} from 'react-redux'
-import PickRoom from '../../components/student/sidebarContent/PickRoom';
 import Deposit from '../../components/student/sidebarContent/Deposit';
 
 

@@ -46,13 +46,13 @@ return (
         </div>
 
       {studentNames && studentNames.length ?(
-                    <ul className="flex flex-col h-[415px] gap-2 overflow-auto mt-3 ">
+                    <ul className="flex flex-col h-[380px] gap-2 overflow-auto mt-3 ">
                     {studentNames.filter((item)=>(
                       searchStudent.toLowerCase() === '' ? item : item?.name.toLowerCase().includes(searchStudent.toLowerCase())
                     )).map((student)=>(
                             <li key={student._id} className="flex items-center justify-between gap-4 bg-[#111111] text-[#D9D9D9] py-4 px-5 rounded-2xl">
                                 <div>
-                                <img   src={student.profilePicture} alt="" className=" size-14 mr-4 rounded-full inline-block" /> 
+                                <img   src={`http://localhost:5000/${student.profilePicture}`} alt="" className=" size-14 mr-4 rounded-full inline-block" /> 
                                 <span >{student.name}</span> 
                                 <span className={` px-4 py-2 ml-4${student.isPaid ? " bg-green-500":" bg-red-500"}`}>{student.isPaid? 'Paid':'Not Paid'}</span> 
                                 <span className={` ml-4 px-4 py-2${student.defaulter && ' bg-red-600'}`}>{student.defaulter && 'Defaulter'}</span>
