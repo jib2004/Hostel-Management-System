@@ -7,41 +7,17 @@ import { Toaster, toast } from 'sonner'
 import { useSelector, useDispatch } from 'react-redux'
 import { isSignInStart,isSignInSuccess,isSignInFailure } from '../../redux/userSlice/userSlice';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { FaEye,FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({})
-
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {isLoading} = useSelector((state) => state.user)
-  const handleImageChange = (e) =>{
-    const file = e.target.files[0];
-    // Check for valid image file
-    if (!file || !file.type.startsWith('image/')) {
-      console.error('Invalid file type. Please select an image.');
-      return;
-    }
-
-    // Handle large image size (optional)
-    if (file.size > 1024 * 1024 * 2) { // 2MB limit (adjust as needed)
-      toast.error('Image size is too large. Please select a smaller image.');
-      return;
-    }
-
-    // Option 1: Preview image (if applicable)
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      setSelectedImage(event.target.result);
-     
-      
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleInput = (e) =>{
-    
     setFormData({...formData,[e.target.id]: e.target.value})
   }
 
@@ -94,16 +70,17 @@ const Register = () => {
         />
         </div>
 
-        <div className='mb-3 '>
+        <div className='mb-3 relative'>
         <TextField
         onChange={handleInput}
         sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
         id="password" 
         label="Password"
-        type='password' 
+        type={showPassword?'text':'password'} 
         variant="outlined"
         className='w-[100%]'
         />
+        <div className='text-[25px] absolute top-4 right-2 text-white' onClick={()=>setShowPassword(!showPassword)}>{showPassword ? <FaEye className='cursor-pointer' /> : <FaEyeSlash className='cursor-pointer' />}</div>
         </div>
 
         <div className='mb-3 '>
@@ -159,17 +136,6 @@ const Register = () => {
         </select>
 
        
-        </div>
-
-        <div className='mb-3 '> 
-        <input id='profilePicture' type="file"  accept="image/*" onChange={handleImageChange} />
-
-        {selectedImage && (
-        <div>
-          <img className=' size-32 object-cover mt-3' src={selectedImage} alt="Selected Image Preview" />
-          
-        </div>
-      )}
         </div>
 
         <div className='flex justify-end my-5'>

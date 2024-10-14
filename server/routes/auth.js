@@ -2,6 +2,9 @@ import express from 'express'
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import  Student  from '../model/studentModel.js'
+import nodemailer from 'nodemailer'
+import { generateOtp } from '../OTP-generator/otp-generator.js'
+import { authenticator } from 'otplib';
 
 const studentRoute = express.Router()
 
@@ -97,6 +100,87 @@ studentRoute.post("/login", async(req,res)=>{
         }).json(studentEmail._doc)
     } catch (error) { 
         console.log(error) 
+    }
+})
+
+studentRoute.put('/forgot-password',async(req,res)=>{
+    const {email} = req.body
+    if(!email){
+        return res.status(400).json('Email is required')
+    }
+    const otp = generateOtp()
+    try {
+        const isStudent = await Student.findOne({email})
+        if(!isStudent){
+            return res.status(404).json('Email not found')
+        }
+   
+        isStudent.otp = otp
+        await isStudent.save()
+        
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465, 
+        secure: true,
+            auth:{
+                user: process.env.GMAIL_EMAIL,
+                pass:process.env.GMAIL_PASSWORD
+            }
+        })
+         
+        const info = await transporter.sendMail({
+            from:`"Wonder Boy" ${process.env.GMAIL_EMAIL}`,
+            to: email,
+            subject:`OTP-password `,
+            text:`This is a one-time password ${otp}`
+            
+        })
+         .catch(e=>console.log(e))
+
+        res.status(200).json("Check your email for an OTP")
+         
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+
+
+studentRoute.put('/verify-otp',async(req,res)=>{
+    const {email,otp} = req.body
+
+    try {
+        const isStudent = await Student.findOne({email})
+        if(!isStudent){
+            return res.status(404).json('Email not found')
+        }
+        if(isStudent.otp !== otp){
+            return res.status(400).json('Invalid OTP')
+        }
+        isStudent.isVerified = true
+        await isStudent.save()
+        res.status(200).json('Otp Valid')
+        
+
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+studentRoute.put('/change-password',async (req,res)=>{
+    const {email,password} = req.body
+    if(!email,!password){
+        return res.status(400).json('Email and password are required')
+    }
+    try {
+        const hashPassword = bcryptjs.hashSync(password,10)
+        const student = await Student.findOneAndUpdate({email},{password:hashPassword,otp:"",isVerified:false})
+        if(!student){
+            return res.status(404).json('Email not found')
+        }
+        res.status(200).json('Password Changed')
+    } catch (error) {
+        res.status(500).json(error)
     }
 })
 

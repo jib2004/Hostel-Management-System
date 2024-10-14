@@ -39,6 +39,8 @@ import Forgot from './pages/students/Forgot.jsx';
 import AdminComplaint from './components/adminDashboardComponents/AdminComplaint.jsx';
 import UsersPage from './components/adminDashboardComponents/Users/UsersPage.jsx';
 import TransactionHistory from './components/student/sidebarContent/TransactionHistory.jsx';
+import ForgotEmailEntry from './pages/students/ForgotEmailEntry.jsx';
+import ChangePassword from './pages/students/ChangePassword.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -72,8 +74,16 @@ const router = createBrowserRouter([
     element:<SignIn />
   },
   {
+    path:'/student/api/email',
+    element:<ForgotEmailEntry /> 
+  },
+  {
     path:"/student/api/forgot-password",
     element:<Forgot />
+  },
+  {
+    path:"/student/api/change-password",
+    element:<ChangePassword />
   },
   {
     path:"/student/dashboard",

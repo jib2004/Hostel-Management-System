@@ -10,13 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@chakra-ui/react": "^2.10.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@mui/material": "^5.15.18",
     "@mui/x-charts": "^7.6.2",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
+    "framer-motion": "^11.11.8",
     "randomatic": "^3.1.1",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",

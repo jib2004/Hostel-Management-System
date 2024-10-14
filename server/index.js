@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
- 
+
 import { connectDB } from './connectDB/connectDB.js'
 import  studentRoute  from './routes/auth.js'
 import adminRoute from './routes/adminAuth.js'

@@ -7,11 +7,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { isSignInStart,isSignInSuccess,isSignInFailure } from '../../redux/userSlice/userSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
+import { FaEye,FaEyeSlash } from 'react-icons/fa';
 
 import { Toaster,toast } from 'sonner';
 
 const SignIn = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {isLoading,error} = useSelector((state) => state.user)
@@ -65,16 +67,17 @@ const SignIn = () => {
         />
         </div>
 
-        <div className='mb-3 '>
+        <div className='mb-3 relative'>
         <TextField
         onChange={handleInput}
-        sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },}}
+        sx={{ backgroundColor: 'black' , color:'#fff !important', '& > :not(style)': { color: '#B0B0B0' },outline:'none'}}
         id="password" 
         label="Password"
-        type='password' 
+        type={showPassword?'text':'password'} 
         variant="outlined"
-        className='w-[100%]'
+        className='w-[100%] outline-none !focus:border-b-0'
         />
+        <div className='text-[25px] absolute top-4 right-2 text-white' onClick={()=>setShowPassword(!showPassword)}>{showPassword ? <FaEye className='cursor-pointer' /> : <FaEyeSlash className='cursor-pointer' />}</div>
         </div>
 
         
@@ -92,7 +95,7 @@ const SignIn = () => {
       </div>
 
       <div>
-        <Link to={'/student/api/forgot-password'} className='underline text-[#00868D]'>Forgot Password ?</Link>
+        <Link to={'/student/api/email'} className='underline text-[#00868D]'>Forgot Password ?</Link>
       </div>
       </form>
 
